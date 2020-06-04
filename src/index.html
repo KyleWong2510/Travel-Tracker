@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
+    <meta charset="utf-8">
     <title>Travel Tracker</title>
   </head>
   <body>
     <header>
       <h1>Travel Tracker</h1>
     </header>
-    <main class="hide">
+    <main id="main" class="hide">
       <aside>
         <section id="welcome-msg">
-          Welcome, Bob
         </section>
         <section id="total-dollar-amt">
           <div id="dollar-amt">
-            $65000
           </div>
         </section>
       </aside>
       <section id="main-content">
         <section id="trips">
           <h2 id="trip-title">Pending Trips</h2>
-          <section id="traveler-trip-btn-container">
+          <section id="traveler-trip-btn-container" class="hide">
             <button class="trip-filter-btn">Pending</button>
             <button class="trip-filter-btn">Past</button>
             <button class="trip-filter-btn">Current</button>
@@ -34,12 +33,12 @@
           </section>
         </section>
         <section id="main-content-results">
-
+          
         </section>
       </section>
       <aside id="search-data">
         <form id="search-bar">
-          <label >Search Destinations</label>
+          <label id="search-input-title" for="search-input"></label>
           <input id="search-input" placeholder="Enter a destination...">
           <button>Search</button>
         </form>
@@ -60,7 +59,7 @@
           <h2>Login</h2>
           <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username"></label>
           <label class="login-inputs" for="password-input">Password: <input id="password-input" placeholder="Enter Password"></label>
-          <button>Login</button>
+          <button id="login-btn">Login</button>
         </section>
   </body>
 </html>
