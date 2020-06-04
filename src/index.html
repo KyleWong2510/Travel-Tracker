@@ -1,13 +1,60 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <title>Travel Tracker</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
+    <header>
+      <h1>Travel Tracker</h1>
+    </header>
+    <main class="hide">
+      <aside>
+        <section id="welcome-msg">
+          Welcome, Bob
+        </section>
+        <section id="total-dollar-amt">
+          <div id="dollar-amt">
+            $65000
+          </div>
+        </section>
+      </aside>
+      <section id="main-content">
+        <section id="trips">
+          <h2 id="trip-title">Pending Trips</h2>
+          <section id="traveler-trip-btn-container">
+            <button class="trip-filter-btn">Pending</button>
+            <button class="trip-filter-btn">Past</button>
+            <button class="trip-filter-btn">Current</button>
+            <button class="trip-filter-btn">Upcoming</button>
+          </section>
+          <section id="agent-trip-btn-container" class="hide">
+            <button class="trip-filter-btn">Pending</button>
+            <button class="trip-filter-btn">Current</button>
+            <button class="trip-filter-btn">All</button>
+          </section>
+        </section>
+        <section id="main-content-results">
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+        </section>
+      </section>
+      <aside id="search-data">
+        <form id="search-bar">
+          <label >Search Destinations</label>
+          <input id="search-input" placeholder="Enter a destination...">
+          <button>Search</button>
+        </form>
+        <section id= "results">
 
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+        </section>
+      </aside>
+    </main>
+        <section id="pop-up-box" class="">
+          <h2>Plan A Trip</h2>
+          <label class="plan-trip-inputs" for="departure-date">Departure Date: <input type="date" id="departure-date"></label>
+          <label class="plan-trip-inputs" for="return-date">Return Date: <input type="date" id="return-date"></label>
+          <label class="plan-trip-inputs" for="destination-input">Destination: <input id="destination-input" placeholder="Enter a destination..."></label>
+          <label class="plan-trip-inputs" for="num-people-input"># of travelers: <input id="num-people-input" type="number" placeholder="1" min="1"></label>
+          <button>Get Estimate</button>
+        </section>
   </body>
 </html>
