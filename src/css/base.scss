@@ -96,7 +96,7 @@ aside {
   width: 100%;
 }
 
-#pop-up-box {
+.pop-up-box {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -116,11 +116,20 @@ aside {
     display: flex;
     justify-content: space-between;
   }
+  button {
+    height: 10%;
+    width: 10%
+  }
 }
 
 .plan-trip-inputs {
   height: 10%;
   width: 70%;
+}
+
+.login-inputs {
+  height: 10%;
+  width: 70%
 }
  
 .hide {
