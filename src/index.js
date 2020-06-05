@@ -7,13 +7,9 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-console.log('This is the JavaScript entry file - your code begins here.');
-
 const usernameInput = document.getElementById('username-input')
 const passwordInput = document.getElementById('password-input')
-const loginBtn = document.getElementById('login-btn')
-
-loginBtn.addEventListener('click', login)
+document.getElementById('login-btn').addEventListener('click', login)
 
 function login() {
   if(!usernameInput.value || !passwordInput.value) {
