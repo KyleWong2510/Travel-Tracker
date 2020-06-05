@@ -5,11 +5,10 @@ import trips from '../data/trips-sample';
 import destinations from '../data/destinations-sample';
 
 describe('Trip', () => {
-  let trip, destinationsData
+  let trip
 
   beforeEach(() => {
-    destinationsData = destinations
-    trip = new Trip(trips[0], destinationsData)
+    trip = new Trip(trips[0], destinations)
   })
 
   it('should be a function', () => {
@@ -57,7 +56,7 @@ describe('Trip', () => {
   })
 
   it('should be able to find the destination data', () => {
-    expect(trip.getDestination(destinationsData)).to.equal(destinationsData[3])
+    expect(trip.getDestination(destinations)).to.equal(destinations[3])
   })
 
   // it('should be print a message if the destinationsData is in the wrong format', () => {
