@@ -1,7 +1,7 @@
 let trips = [
   {
     "id": 1,
-    "userID": 44,
+    "userID": 1,
     "destinationID": 49,
     "travelers": 1,
     "date": "2019/09/16",
@@ -10,7 +10,7 @@ let trips = [
     "suggestedActivities": []
   }, {
     "id": 2,
-    "userID": 35,
+    "userID": 1,
     "destinationID": 25,
     "travelers": 5,
     "date": "2020/10/04",
@@ -19,7 +19,7 @@ let trips = [
     "suggestedActivities": []
   }, {
     "id": 3,
-    "userID": 3,
+    "userID": 2,
     "destinationID": 22,
     "travelers": 4,
     "date": "2020/05/22",
@@ -28,7 +28,7 @@ let trips = [
     "suggestedActivities": []
   }, {
     "id": 4,
-    "userID": 43,
+    "userID": 3,
     "destinationID": 14,
     "travelers": 2,
     "date": "2020/02/25",
@@ -37,7 +37,7 @@ let trips = [
     "suggestedActivities": []
   }, {
     "id": 5,
-    "userID": 42,
+    "userID": 1,
     "destinationID": 29,
     "travelers": 3,
     "date": "2020/04/30",
