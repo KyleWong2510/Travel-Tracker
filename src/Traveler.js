@@ -1,19 +1,19 @@
 let date = '2020/10/15'
 
 class Traveler {
-  constructor(traveler) {
+  constructor(traveler, tripsData, destinationsData) {
     this.id = traveler.id;
     this.name = traveler.name;
     this.travelerType = traveler.travelerType;
-    this.totalInvested = 0;
-    this.allTrips = []
+    this.allTrips = this.getTravelerTrips(tripsData)
+    this.annualCost = this.calculateAnnualCost(destinationsData)
   }
 
   getTravelerTrips(tripsData) {
     if(!Array.isArray(tripsData) || tripsData.length < 1) {
-      throw Error('Wrong data type')
+      return console.log('Wrong data type')
     }
-    this.allTrips = tripsData.filter(trip => trip.userID === this.id)
+    return tripsData.filter(trip => trip.userID === this.id)
   }
 
   filterTripsByDate(date, time) {
@@ -28,11 +28,11 @@ class Traveler {
     }
   }
 
-  calculateAnnualCost() {
+  calculateAnnualCost(destinationsData) {
     let year = date.split('/')[0]
     return this.allTrips.reduce((sum, trip) => {
       if(trip.date.split('/')[0] === year && trip.date < date) {
-        sum += trip.calculateTripCost()
+        sum += trip.calculateTripCost(destinationsData)
       }
       return sum
     }, 0)

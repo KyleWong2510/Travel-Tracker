@@ -7,11 +7,11 @@ import trips from '../data/trips-sample';
 import destinations from '../data/destinations-sample';
 
 describe('Traveler', () => {
-  let traveler, tripData, trip1
+  let traveler, tripsData
   
   beforeEach(() => {
-    traveler = new Traveler(travelers[0])
-    tripData = trips.map(trip => new Trip(trip, destinations))
+    tripsData = trips.map(trip => new Trip(trip))
+    traveler = new Traveler(travelers[0], tripsData, destinations)
   })
 
   it('should be a function', () => {
@@ -35,28 +35,29 @@ describe('Traveler', () => {
   })
 
   it('should hold a list of all of their trips', () => {
-    traveler.getTravelerTrips(tripData)
+    let tripData = trips.map(trip => new Trip(trip))
     expect(traveler.allTrips).to.deep.equal([tripData[0], tripData[1], tripData[4]])
   })
 
   // it('should print a message if the argument passed is the wrong data type', () => {
   //   let badTripData = 'trips'
-  //   expect(() => traveler.getTravelerTrips(badTripData)).to.throw(Error('Wrong data type'))
-  //   // expect(console.log).to.have.been.called(1)
-  //   // expect(console.log.calledWith('sorry, charlie'))
+  //   expect(traveler.getTravelerTrips(badTripData)).to.be.a.string('Wrong data type')
   // })
 
   it('should be able to return trips before a given date', () => {
+    let tripData = trips.map(trip => new Trip(trip))
     traveler.getTravelerTrips(tripData)
     expect(traveler.filterTripsByDate('2020/10/05', 'before')).to.deep.equal([tripData[0], tripData[1], tripData[4]])
   })
 
   it('should be able to return trips after a given date', () => {
+    let tripData = trips.map(trip => new Trip(trip))
     traveler.getTravelerTrips(tripData)
     expect(traveler.filterTripsByDate('2020/09/04', 'after')).to.deep.equal([tripData[1]])
   })
 
   it('should be able to return trips on a given date', () => {
+    let tripData = trips.map(trip => new Trip(trip))
     traveler.getTravelerTrips(tripData)
     expect(traveler.filterTripsByDate('2020/04/30', 'on')).to.deep.equal([tripData[4]])
   })
@@ -72,8 +73,11 @@ describe('Traveler', () => {
   // })
 
   it('should be able to calculate a total cost for trips this calendar year', () => {
-    traveler.getTravelerTrips(tripData)
-    expect(traveler.calculateAnnualCost()).to.equal(10505)
+    let tripData = trips.map(trip => new Trip(trip))
+    // traveler.getTravelerTrips(tripData)
+    expect(traveler.calculateAnnualCost(destinations)).to.equal(10505)
+    expect(traveler.annualCost).to.equal(10505)
+
   })
 
 })
