@@ -2,11 +2,11 @@ let trips = [
   {
     "id": 1,
     "userID": 1,
-    "destinationID": 49,
+    "destinationID": 4,
     "travelers": 1,
     "date": "2019/09/16",
     "duration": 8,
-    "status": "approved",
+    "status": "pending",
     "suggestedActivities": []
   }, {
     "id": 2,
