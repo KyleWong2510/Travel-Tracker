@@ -1,3 +1,5 @@
+let date = '2020/10/15'
+
 class Traveler {
   constructor(traveler) {
     this.id = traveler.id;
@@ -27,7 +29,13 @@ class Traveler {
   }
 
   calculateAnnualCost() {
-
+    let year = date.split('/')[0]
+    return this.allTrips.reduce((sum, trip) => {
+      if(trip.date.split('/')[0] === year && trip.date < date) {
+        sum += trip.calculateTripCost()
+      }
+      return sum
+    }, 0)
   }
 }
 
