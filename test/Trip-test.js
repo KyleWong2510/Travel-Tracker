@@ -8,7 +8,7 @@ describe('Trip', () => {
   let trip
 
   beforeEach(() => {
-    trip = new Trip(trips[0], destinations)
+    trip = new Trip(trips[0])
   })
 
   it('should be a function', () => {
@@ -65,6 +65,6 @@ describe('Trip', () => {
   // })
 
   it('should be able to calculate the trip cost', () => {
-    expect(trip.calculateTripCost()).to.equal(957)
+    expect(trip.calculateTripCost(destinations)).to.equal(957)
   })
 })

@@ -50,4 +50,4 @@ const fetchCalls = {
   }
 }
 
-export default ApiController
+export default fetchCalls
