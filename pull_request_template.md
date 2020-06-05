@@ -14,5 +14,15 @@
 ### Files modified:
 - [ ] index.html
 - [ ] base.scss
-- [ ] scripts.js
 - [ ] index.js
+
+- [ ] FetchCalls.js
+- [ ] DomUpdates.js
+- [ ] Agent.js
+- [ ] Traveler.js
+- [ ] Trip.js
+
+- [ ] Agent-test.js
+- [ ] Traveler-test.js
+- [ ] Trip-test.js
+
