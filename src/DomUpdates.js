@@ -118,15 +118,24 @@ const domUpdates = {
   displayDestinations(destinationsRepo) {
     destinationsRepo.forEach(destination => {
       document.getElementById('search-list').insertAdjacentHTML('beforeend', `
-        <div class='destination-card'>
+        <div class='destination-card' id='${destination.id}'>
           <h3 class='destination-title'>${destination.destination}</h3>
           <img src='${destination.image}' alt='${destination.alt}'>
           <p>Estimated Lodging: $${destination.estimatedLodgingCostPerDay} / day</p>
           <p>Estimated Flight: $${destination.estimatedFlightCostPerPerson} / person</p>
-          <button id='${destination.id}'>Plan A Trip</button>
+          <button>Plan A Trip</button>
         </div>
       `) 
     })
+  },
+
+  filterDestinations(destinationsRepo) {
+    document.getElementById('search-list').innerHTML = ''
+    let search = document.getElementById('search-input')
+    let searched = destinationsRepo.filter(destination => {
+      return destination.destination.toLowerCase().includes(search.value.toLowerCase())
+    })
+    this.displayDestinations(searched)
   }
 }
 

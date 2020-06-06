@@ -81,3 +81,10 @@ function agentFilter(e) {
 function travelerFilter(e) {
   domUpdates.filterTravelerTrips(e, currentUser)
 }
+
+document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
+
+function searchItems(e) {
+  e.preventDefault()
+  domUpdates.filterDestinations(destinationsRepo)
+}
