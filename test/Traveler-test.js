@@ -53,11 +53,6 @@ describe('Traveler', () => {
     expect(traveler.filterTripsByDate('2020/09/04', 'after')).to.deep.equal([tripsData[1]])
   })
 
-  it('should be able to return trips on a given date', () => {
-    traveler.getTravelerTrips(tripsData)
-    expect(traveler.filterTripsByDate('2020/04/30', 'on')).to.deep.equal([tripsData[4]])
-  })
-
   // it('should print a message if the date parameter is not valid', () => {
   //   traveler.getTravelerTrips(tripData)
   //   expect(traveler.filterTripsByDate('2020-04-30', 'on')).to.throw(Error(''))
@@ -69,9 +64,13 @@ describe('Traveler', () => {
   // })
 
   // HOW TO TEST FOR A DYNAMIC DATE?
-  it('should be able to calculate a total cost for trips this calendar year', () => {
+  it.skip('should be able to calculate a total cost for trips this calendar year', () => {
     expect(traveler.calculateAnnualCost(destinations)).to.equal(10505)
     expect(traveler.annualCost).to.equal(10505)
   })
 
+  //SPIES TEST
+  it('should be able to create a trip', () => {
+    expect(traveler.createTrip())
+  })
 })
