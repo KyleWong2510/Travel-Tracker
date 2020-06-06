@@ -11,8 +11,8 @@ describe('Agent', () => {
   let agent, tripsData
 
   beforeEach(() => {
-    agent = new Agent
     tripsData = trips.map(trip => new Trip(trip))
+    agent = new Agent
   })
 
   it('should be a function', () => {
@@ -40,6 +40,14 @@ describe('Agent', () => {
     expect(agent.calculateAnnualRevenue(travelersRepo, destinations)).to.equal(1745.7)
   })
 
+  it('should be able to get pending trips', () => {
+    expect(agent.getPendingTrips(tripsData)).to.deep.equal([tripsData[0], tripsData[1], tripsData[2]])
+  })
+
+  it('should be able to get current trips', () => {
+    expect(agent.getCurrentTrips('2020/05/23', tripsData)).to.deep.equal([tripsData[2], tripsData[4]])
+  })
+  
   //SPIES
   // it('should be able to change the status of a trip', () => {
   //   agent.changeStatus(tripsData[0], 'approved')

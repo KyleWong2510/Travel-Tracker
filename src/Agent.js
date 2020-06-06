@@ -1,8 +1,11 @@
 import fetchCalls from '../src/FetchCalls'
+import moment from 'moment'
 class Agent {
-  constructor() {
-    this.annualRevenue = 0
-  }
+  // constructor() {
+    // this.annualRevenue = this.calculateAnnualRevenue(travelersData)
+    // this.pendingTrips = this.getPendingTrips(tripsData)
+  // }
+
   searchTravelersByName(name, travelersData) {
     if(!Array.isArray(travelersData)) {
       console.log('The second argument must be an array')
@@ -16,6 +19,20 @@ class Agent {
       return sum
     }, 0)
     return Number((travelersCost * .10).toFixed(2))
+  }
+
+  getPendingTrips(tripsData) {
+    return tripsData.filter(trip => trip.status === 'pending')
+  }
+
+  getCurrentTrips(date, tripsData) {
+    return tripsData.filter(trip => {
+      let start = moment(trip.date).format('YYYY/MM/DD');
+      let end = moment(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD')
+      if(start <= date && date <= end) {
+        return trip
+      }
+    })
   }
 
   changeStatus(trip, status) {

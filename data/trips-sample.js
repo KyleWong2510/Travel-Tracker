@@ -41,7 +41,7 @@ let trips = [
     "destinationID": 1,
     "travelers": 3,
     "date": "2020/04/30",
-    "duration": 18,
+    "duration": 35,
     "status": "approved",
     "suggestedActivities": []
   }

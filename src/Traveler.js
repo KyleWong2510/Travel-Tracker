@@ -1,4 +1,5 @@
-let date = '2020/10/15'
+// let date = '2020/10/15'
+import moment from 'moment'
 
 class Traveler {
   constructor(traveler, tripsData, destinationsData) {
@@ -29,6 +30,7 @@ class Traveler {
   }
 
   calculateAnnualCost(destinationsData) {
+    let date = moment().format('YYYY/MM/DD')
     let year = date.split('/')[0]
     return this.allTrips.reduce((sum, trip) => {
       if(trip.date.split('/')[0] === year && trip.date < date) {
