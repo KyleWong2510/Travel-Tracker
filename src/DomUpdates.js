@@ -13,12 +13,11 @@ const domUpdates = {
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
   },
-  
-  //do same as above
-  loadTraveler() {
+
+  loadTraveler(traveler) {
     document.getElementById('traveler-trip-btn-container').classList.remove('hide')
-    document.getElementById('welcome-msg').innerText = 'Welcome, traveler'
-    document.getElementById('dollar-amt').innerText = 'Annual Amount Spent: '
+    document.getElementById('welcome-msg').innerText = `Welcome, ${traveler.name}`
+    document.getElementById('dollar-amt').innerText = `Annual Amount Spent: ${traveler.annualCost}`
     document.getElementById('search-input-title').innerText = 'Search Destinations'
     document.getElementById('search-input').placeholder = 'Enter Destination...'
     document.getElementById('main').classList.remove('hide')
@@ -46,17 +45,72 @@ const domUpdates = {
   },
 
   filterAgentTrips(e, agent, tripsRepo) {
-    if(e.target.id === 'agent-pending') {
-      domUpdates.displayTrips(agent.getPendingTrips(tripsRepo))
+    if (e.target.id === 'agent-pending') {
+      this.displayTrips(agent.getPendingTrips(tripsRepo))
       document.getElementById('trip-title').innerText = 'Pending Trips'
     }
-    if(e.target.id === 'agent-current') {
-      domUpdates.displayTrips(agent.getCurrentTrips(this.date, tripsRepo))
+    if (e.target.id === 'agent-current') {
+      this.displayTrips(agent.getCurrentTrips(this.date, tripsRepo))
       document.getElementById('trip-title').innerText = 'Current Trips'
     }
-    if(e.target.id === 'agent-all') {
-      domUpdates.displayTrips(tripsRepo)
+    if (e.target.id === 'agent-all') {
+      this.displayTrips(tripsRepo)
       document.getElementById('trip-title').innerText = 'All Trips'
+    }
+  },
+
+  displayTravelerPending(traveler) {
+    let pending = traveler.allTrips.filter(trip => trip.status === 'pending')
+    if (pending.length === 0) {
+      document.getElementById('main-content-results').innerHTML = '<p>No trips awaiting approval</p>'
+    } else {
+      this.displayTrips(pending)
+      document.getElementById('trip-title').innerText = 'Pending Trips'
+    }
+  },
+
+  displayTravelerPast(traveler) {
+    let past = traveler.filterTripsByDate(this.date, 'before')
+    if (past.length === 0) {
+      document.getElementById('main-content-results').innerHTML = '<p>No past trips</p>'
+    } else {
+      this.displayTrips(past)
+      document.getElementById('trip-title').innerText = 'Past Trips'
+    }
+  },
+
+  displayTravelerCurrent(traveler) {
+    let current = traveler.getCurrentTrips(this.date)
+    if (current.length === 0) {
+      document.getElementById('main-content-results').innerHTML = '<p>No current trips</p>'
+    } else {
+      this.displayTrips(current)
+      document.getElementById('trip-title').innerText = 'Current Trips'
+    }
+  },
+
+  displayTravelerUpcoming(traveler) {
+    let upcoming = traveler.filterTripsByDate(this.date, 'after')
+    if (upcoming.length === 0) {
+      document.getElementById('main-content-results').innerHTML = '<p>No upcoming trips</p>'
+    } else {
+      this.displayTrips(upcoming)
+      document.getElementById('trip-title').innerText = 'Upcoming Trips'
+    }
+  },
+
+  filterTravelerTrips(e, traveler) {
+    if (e.target.id === 'traveler-pending') {
+      this.displayTravelerPending(traveler)
+    }
+    if (e.target.id === 'traveler-past') {
+      this.displayTravelerPast(traveler)
+    }
+    if (e.target.id === 'traveler-current') {
+      this.displayTravelerCurrent(traveler)
+    }
+    if (e.target.id === 'traveler-upcoming') {
+      this.displayTravelerUpcoming(traveler)
     }
   }
 }

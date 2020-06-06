@@ -21,19 +21,30 @@ class Traveler {
     if (time === 'before') {
       return this.allTrips.filter(trip => trip.date < date)
     }
-    if (time === 'on') {
-      return this.allTrips.filter(trip => trip.date === date)
-    }
+    // if (time === 'on') {
+    //   return this.allTrips.filter(trip => trip.date === date)
+    // }
     if (time === 'after') {
       return this.allTrips.filter(trip => trip.date > date)
     }
+  }
+
+  //pass arr and have agent and traveler inherit?
+  getCurrentTrips(date) {
+    return this.allTrips.filter(trip => {
+      let start = moment(trip.date).format('YYYY/MM/DD');
+      let end = moment(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD')
+      if(start <= date && date <= end) {
+        return trip
+      }
+    })
   }
 
   calculateAnnualCost(destinationsData) {
     let date = moment().format('YYYY/MM/DD')
     let year = date.split('/')[0]
     return this.allTrips.reduce((sum, trip) => {
-      if(trip.date.split('/')[0] === year && trip.date < date) {
+      if(trip.date.split('/')[0] === year) {
         sum += trip.calculateTripCost(destinationsData)
       }
       return sum

@@ -63,7 +63,8 @@ function login() {
   }
   for (let i = 1; i < 51; i++) {
     if(usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
-      domUpdates.loadTraveler()
+      currentUser = travelersRepo[i - 1]
+      domUpdates.loadTraveler(currentUser)
     } 
   }
   if(!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
@@ -74,3 +75,7 @@ function login() {
 function agentFilter(e) {
   domUpdates.filterAgentTrips(e, currentUser, tripsRepo)
 }
+function travelerFilter(e) {
+  domUpdates.filterTravelerTrips(e, currentUser)
+}
+document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
