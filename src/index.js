@@ -17,6 +17,7 @@ let destinationsRepo = []
 
 document.getElementById('login-btn').addEventListener('click', login)
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
+document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
 
 fetchData()
 
@@ -59,12 +60,13 @@ function login() {
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgent(currentUser, travelersRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo)
+    
   }
   for (let i = 1; i < 51; i++) {
     if(usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
       currentUser = travelersRepo[i - 1]
-      domUpdates.loadTraveler(currentUser)
+      domUpdates.loadTravelerDash(currentUser, destinationsRepo)
     } 
   }
   if(!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
@@ -75,7 +77,7 @@ function login() {
 function agentFilter(e) {
   domUpdates.filterAgentTrips(e, currentUser, tripsRepo)
 }
+
 function travelerFilter(e) {
   domUpdates.filterTravelerTrips(e, currentUser)
 }
-document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))

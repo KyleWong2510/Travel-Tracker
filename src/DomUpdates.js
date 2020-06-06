@@ -4,7 +4,7 @@ import moment from 'moment'
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
-  loadAgent(agent, travelersData) {
+  loadAgentDash(agent, travelersData) {
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerText = `Annual Revenue: ${agent.calculateAnnualRevenue(travelersData)}`
@@ -14,12 +14,13 @@ const domUpdates = {
     document.getElementById('login').classList.add('hide')
   },
 
-  loadTraveler(traveler) {
+  loadTravelerDash(traveler, destinations) {
     document.getElementById('traveler-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = `Welcome, ${traveler.name}`
     document.getElementById('dollar-amt').innerText = `Annual Amount Spent: ${traveler.annualCost}`
     document.getElementById('search-input-title').innerText = 'Search Destinations'
     document.getElementById('search-input').placeholder = 'Enter Destination...'
+    this.displayDestinations(destinations)
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
   },
@@ -112,6 +113,20 @@ const domUpdates = {
     if (e.target.id === 'traveler-upcoming') {
       this.displayTravelerUpcoming(traveler)
     }
+  },
+
+  displayDestinations(destinationsRepo) {
+    destinationsRepo.forEach(destination => {
+      document.getElementById('search-list').insertAdjacentHTML('beforeend', `
+        <div class='destination-card'>
+          <h3 class='destination-title'>${destination.destination}</h3>
+          <img src='${destination.image}' alt='${destination.alt}'>
+          <p>Estimated Lodging: $${destination.estimatedLodgingCostPerDay} / day</p>
+          <p>Estimated Flight: $${destination.estimatedFlightCostPerPerson} / person</p>
+          <button id='${destination.id}'>Plan A Trip</button>
+        </div>
+      `) 
+    })
   }
 }
 

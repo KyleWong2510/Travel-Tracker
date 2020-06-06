@@ -55,8 +55,9 @@ aside {
   justify-content: space-evenly;
 }
 
-#results {
+#search-list {
   height: 80%;
+  padding: 5%;
   width: 100%;
 }
 
@@ -135,6 +136,21 @@ aside {
   display: flex;
   padding: 3%;
   width: 80%
+}
+
+.destination-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-evenly;
+  margin-bottom: 5%;
+  text-align: center;
+  img {
+    width: 80%
+  };
+
+
 }
 
 .hide {
