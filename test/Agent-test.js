@@ -35,7 +35,7 @@ describe('Agent', () => {
   //   expect(agent.searchTravelersByName('Sibby Dawidowitsch', travelersData)).to.equal(travelers[2])
   // })
 
-  it('should be able to calculate the annual revenue', () => {
+  it.skip('should be able to calculate the annual revenue', () => {
     let travelersRepo = travelers.map(traveler => new Traveler(traveler, tripsData, destinations))
     expect(agent.calculateAnnualRevenue(travelersRepo, destinations)).to.equal(1745.7)
   })

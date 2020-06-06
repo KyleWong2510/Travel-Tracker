@@ -1,5 +1,6 @@
 // let date = '2020/10/15'
 import moment from 'moment'
+import fetchCalls from '../src/FetchCalls'
 
 class Traveler {
   constructor(traveler, tripsData, destinationsData) {
@@ -21,9 +22,6 @@ class Traveler {
     if (time === 'before') {
       return this.allTrips.filter(trip => trip.date < date)
     }
-    // if (time === 'on') {
-    //   return this.allTrips.filter(trip => trip.date === date)
-    // }
     if (time === 'after') {
       return this.allTrips.filter(trip => trip.date > date)
     }
@@ -49,6 +47,22 @@ class Traveler {
       }
       return sum
     }, 0)
+  }
+
+  createTrip(tripInfo) {
+    let postObj = {
+      id: Date.now(),
+      userID: this.id,
+      destinationID: tripInfo.destinationID,
+      travelers: tripInfo.travelers,
+      date: tripInfo.date,
+      duration: tripInfo.duration,
+      status: 'pending',
+      suggestedActivities: []
+    }
+    fetchCalls.postNewTrip(postObj)
+      .then(response => console.log(response))
+      .catch(err => console.error(err.message))
   }
 }
 
