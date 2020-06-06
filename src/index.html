@@ -21,10 +21,10 @@
         <section id="trips">
           <h2 id="trip-title">Pending Trips</h2>
           <section id="traveler-trip-btn-container" class="hide">
-            <button class="trip-filter-btn">Pending</button>
-            <button class="trip-filter-btn">Past</button>
-            <button class="trip-filter-btn">Current</button>
-            <button class="trip-filter-btn">Upcoming</button>
+            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
+            <button id="traveler-past" class="trip-filter-btn">Past</button>
+            <button id="traveler-current" class="trip-filter-btn">Current</button>
+            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
           </section>
           <section id="agent-trip-btn-container" class="hide">
             <button id="agent-pending" class="trip-filter-btn">Pending</button>
@@ -57,8 +57,8 @@
         </section>
         <section id="login" class="pop-up-box">
           <h2>Login</h2>
-          <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username"></label>
-          <label class="login-inputs" for="password-input">Password: <input id="password-input" placeholder="Enter Password"></label>
+          <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username" value="traveler50"></label>
+          <label class="login-inputs" for="password-input">Password: <input id="password-input" placeholder="Enter Password" value="travel2020"></label>
           <button id="login-btn">Login</button>
         </section>
   </body>

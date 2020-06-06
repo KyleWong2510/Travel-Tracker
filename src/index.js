@@ -6,15 +6,17 @@ import Agent from '../src/Agent'
 import Traveler from '../src/Traveler'
 import Trip from '../src/Trip'
 
-document.getElementById('login-btn').addEventListener('click', login)
-document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => filterAgentTrips(e))
-let agent;
+// let agent;
+let currentUser;
 let currentTraveler;
 // let date = '2020/06/05'
 let date = moment().format('YYYY/MM/DD')
 let travelersRepo = []
 let tripsRepo = []
 let destinationsRepo = []
+
+document.getElementById('login-btn').addEventListener('click', login)
+document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
 
 fetchData()
 
@@ -56,20 +58,24 @@ function login() {
     alert('Sorry, incorrect password')
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-    agent = new Agent;
-    domUpdates.loadAgent(agent)
+    currentUser = new Agent;
+    domUpdates.loadAgent(currentUser, travelersRepo)
   }
-  domUpdates.loadTraveler()
+  for (let i = 1; i < 51; i++) {
+    if(usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
+      currentUser = travelersRepo[i - 1]
+      domUpdates.loadTraveler(currentUser)
+    } 
+  }
+  if(!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
+    alert('Sorry, unknown username')
+  }
 }
 
-function filterAgentTrips(e) {
-  if(e.target.id === 'agent-pending') {
-    domUpdates.displayTrips(agent.getPendingTrips(tripsRepo))
-  }
-  if(e.target.id === 'agent-current') {
-    domUpdates.displayTrips(agent.getCurrentTrips(date, tripsRepo))
-  }
-  if(e.target.id === 'agent-all') {
-    domUpdates.displayTrips(tripsRepo)
-  }
+function agentFilter(e) {
+  domUpdates.filterAgentTrips(e, currentUser, tripsRepo)
 }
+function travelerFilter(e) {
+  domUpdates.filterTravelerTrips(e, currentUser)
+}
+document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
