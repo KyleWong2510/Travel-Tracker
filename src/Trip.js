@@ -1,5 +1,3 @@
-import destinations from "../data/destinations-sample"
-
 class Trip {
   constructor(trip) {
     this.id = trip.id

@@ -35,8 +35,7 @@ describe('Traveler', () => {
   })
 
   it('should hold a list of all of their trips', () => {
-    let tripData = trips.map(trip => new Trip(trip))
-    expect(traveler.allTrips).to.deep.equal([tripData[0], tripData[1], tripData[4]])
+    expect(traveler.allTrips).to.deep.equal([tripsData[0], tripsData[1], tripsData[4]])
   })
 
   // it('should print a message if the argument passed is the wrong data type', () => {
@@ -45,21 +44,18 @@ describe('Traveler', () => {
   // })
 
   it('should be able to return trips before a given date', () => {
-    let tripData = trips.map(trip => new Trip(trip))
-    traveler.getTravelerTrips(tripData)
-    expect(traveler.filterTripsByDate('2020/10/05', 'before')).to.deep.equal([tripData[0], tripData[1], tripData[4]])
+    traveler.getTravelerTrips(tripsData)
+    expect(traveler.filterTripsByDate('2020/10/05', 'before')).to.deep.equal([tripsData[0], tripsData[1], tripsData[4]])
   })
 
   it('should be able to return trips after a given date', () => {
-    let tripData = trips.map(trip => new Trip(trip))
-    traveler.getTravelerTrips(tripData)
-    expect(traveler.filterTripsByDate('2020/09/04', 'after')).to.deep.equal([tripData[1]])
+    traveler.getTravelerTrips(tripsData)
+    expect(traveler.filterTripsByDate('2020/09/04', 'after')).to.deep.equal([tripsData[1]])
   })
 
   it('should be able to return trips on a given date', () => {
-    let tripData = trips.map(trip => new Trip(trip))
-    traveler.getTravelerTrips(tripData)
-    expect(traveler.filterTripsByDate('2020/04/30', 'on')).to.deep.equal([tripData[4]])
+    traveler.getTravelerTrips(tripsData)
+    expect(traveler.filterTripsByDate('2020/04/30', 'on')).to.deep.equal([tripsData[4]])
   })
 
   // it('should print a message if the date parameter is not valid', () => {
@@ -72,12 +68,10 @@ describe('Traveler', () => {
   //   expect(traveler.filterTripsByDate('2020/04/30', 'now')).to.throw(Error(''))
   // })
 
+  // HOW TO TEST FOR A DYNAMIC DATE?
   it('should be able to calculate a total cost for trips this calendar year', () => {
-    let tripData = trips.map(trip => new Trip(trip))
-    // traveler.getTravelerTrips(tripData)
     expect(traveler.calculateAnnualCost(destinations)).to.equal(10505)
     expect(traveler.annualCost).to.equal(10505)
-
   })
 
 })
