@@ -92,7 +92,9 @@ aside {
 }
 
 #main-content-results {
+  @include flex-rules(column, none);
   height: 80%;
+  padding: 4%;
   width: 100%;
 }
 
@@ -102,7 +104,7 @@ aside {
   height: 50vh;
   left: 25%;
   position: absolute;
-  top: 20%;
+  top: 30%;
   width: 50vw;
   z-index: 100;
   input {
@@ -126,7 +128,9 @@ aside {
  
 #trip-card {
   display: flex;
-  padding: 3%;
+  font-size: 1.25em;
+  margin-bottom: 3%;
+  padding: 1%;
   width: 80%
 }
 
@@ -138,6 +142,11 @@ aside {
   img {
     width: 80%
   };
+}
+
+#trip-card-info,
+#trip-card-ids {
+  width: 50%;
 }
 
 .hide {
