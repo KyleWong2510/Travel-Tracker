@@ -21,10 +21,15 @@ document.getElementById('traveler-trip-btn-container').addEventListener('click',
 document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
 document.addEventListener('click', (e) => {
   if(e.target.classList.contains('plan-trip-btn')) {
-    displayPostForm(e)
+    domUpdates.displayPostForm(e)
   }
   if(e.target.id === 'close-btn') {
+    e.preventDefault()
     e.target.parentNode.classList.add('hide')
+  }
+  if(e.target.id === 'get-estimate-btn') {
+    e.preventDefault()
+    createTrip()
   }
 })
 
@@ -41,12 +46,10 @@ function fetchData() {
       tripsData = response[1].trips;
       destinationsData = response[2].destinations
 
-      //why cant these be in a .then?
       createTrips(tripsData)
       createTravelers(travelersData, tripsRepo, destinationsData)
       destinationsRepo = destinationsData
     })
-    //why do console.logs outside of the promise still run if they are in a .then
     .catch(err => console.error(err.message))
 }
 
@@ -96,9 +99,36 @@ function searchItems(e) {
   domUpdates.filterDestinations(destinationsRepo)
 }
 
-function displayPostForm(e) {
-  let destination = e.target.parentNode.firstElementChild.innerText
-  document.getElementById('plan-trip-title').innerText = `Plan a trip to ${destination}`
-  document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
-  document.getElementById('plan-trip').classList.remove('hide')
+function createTrip() {
+    let postObj = {
+      id: Date.now(),
+      userID: currentUser.id,
+      destinationID: +document.getElementById('plan-trip-title').firstElementChild.id,
+      travelers: +document.getElementById('num-people-input').value || +document.getElementById('num-people-input').placeholder,
+      date: moment(document.getElementById('departure-date').value).format('YYYY/MM/DD'),
+      duration: getDuration(),
+      status: 'pending',
+      suggestedActivities: []
+    }
+    fetchCalls.postNewTrip(postObj)
+      .then(response => console.log(response))
+      .catch(err => console.error(err.message))
+
+    domUpdates.resetTravelerPostForm()
+    
+    let trips = fetchCalls.getTrips()
+    return Promise.resolve(trips)
+      .then(response => createTrips(response.trips))
+      .then(currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo))
+      .then(console.log(currentUser.allTrips))
+      .then(domUpdates.displayTravelerPending(currentUser, destinationsRepo))
+  }
+
+function getDuration() {
+  let startInput = document.getElementById('departure-date').value
+  let endInput = document.getElementById('return-date').value
+  let start = moment(startInput)
+  let end = moment(endInput)
+  return end.diff(start, 'days')
 }
+

@@ -58,8 +58,8 @@ const domUpdates = {
           <p id='trip-card-name'>${trip.getDestination(destinationsData).destination}</p>
           <div id='trip-card-body'>
             <div id='trip-card-ids'>
-              <p>TripID: ${trip.id}</p>
               <p>Date: ${trip.date}</p>
+              <p>TripID: ${trip.id}</p>
             </div>
             <div id='trip-card-info'>
               <p>Duration: ${trip.duration}</p>
@@ -167,6 +167,22 @@ const domUpdates = {
       return destination.destination.toLowerCase().includes(search.value.toLowerCase())
     })
     this.displayDestinations(searched)
+  },
+
+  displayPostForm(e) {
+    let destination = e.target.parentNode
+    document.getElementById('plan-trip-title').innerHTML = `<p id='${destination.parentNode.parentNode.id}'>Plan a trip to ${destination.firstElementChild.innerText}</p>`
+    document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
+    
+    console.log( document.getElementById('num-people-input').value)
+    
+    document.getElementById('plan-trip').classList.remove('hide')
+  },
+
+  resetTravelerPostForm() {
+    document.getElementById('plan-trip').reset()
+    document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
+    document.getElementById('plan-trip').classList.add('hide')
   }
 }
 

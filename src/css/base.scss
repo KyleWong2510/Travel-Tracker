@@ -156,8 +156,8 @@ aside {
 #trip-card {
   @include flex-rules(column, space-between);
   display: flex;
-  font-size: 1.25em;
-  height: 25%;
+  font-size: 1.1em;
+  height: 30%;
   margin-bottom: 5%;
   padding: 1%;
   width: 80%
