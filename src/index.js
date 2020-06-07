@@ -8,13 +8,13 @@ import Trip from '../src/Trip'
 
 // let agent;
 let currentUser;
-let currentTraveler;
 // let date = '2020/06/05'
 let date = moment().format('YYYY/MM/DD')
 let travelersRepo = []
 let tripsRepo = []
 let destinationsRepo = []
 
+// document.getElementById('close-btn').addEventListener('click', (e) => e.target.parentNode.classList.add('hide'))
 document.getElementById('login-btn').addEventListener('click', login)
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
 document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
@@ -22,6 +22,9 @@ document.getElementById('search-btn').addEventListener('click', (e) => searchIte
 document.addEventListener('click', (e) => {
   if(e.target.classList.contains('plan-trip-btn')) {
     displayPostForm(e)
+  }
+  if(e.target.id === 'close-btn') {
+    e.target.parentNode.classList.add('hide')
   }
 })
 

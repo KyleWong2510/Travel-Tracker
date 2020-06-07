@@ -32,6 +32,7 @@ const domUpdates = {
         <div id='trip-card'>
           <div id='trip-card-ids'>
             <p>TripID: ${trip.id}</p>
+            <p>TravelerID: ${trip.userID}</p>
             <p>DestinationID: ${trip.destinationID}</p>
           </div>
           <div id='trip-card-info'>
@@ -73,7 +74,7 @@ const domUpdates = {
       document.getElementById('trip-title').innerText = 'Pending Trips'
     }
     if (e.target.id === 'agent-current') {
-      this.displayAgentrips(agent.getCurrentTrips(this.date, tripsRepo))
+      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo))
       document.getElementById('trip-title').innerText = 'Current Trips'
     }
     if (e.target.id === 'agent-all') {
