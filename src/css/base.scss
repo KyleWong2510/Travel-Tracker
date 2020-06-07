@@ -6,16 +6,20 @@
   padding: 0;
 }
 
-body {
+@mixin flex-rules($direction, $justify) {
+  align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: $direction;
+  justify-content: $justify
+}
+
+body {
+  @include flex-rules(column, none)
 }
 
 header {
-  align-items: center;
-  display: flex;
+  @include flex-rules(row, center);
   height: 15vh;
-  justify-content: center;
   width: 100vw;
 }
 
@@ -25,8 +29,7 @@ main {
 
 //ASIDE
 aside {
-  display: flex;
-  flex-direction: column;
+  @include flex-rules(column, none);
   height: 85vh;
   width: 20vw;
 }
@@ -34,25 +37,20 @@ aside {
 #welcome-msg,
 #total-dollar-amt,
 #search-bar {
-  align-items: center;
-  display: flex;
+  @include flex-rules(row, center);
   height: 20%;
-  justify-content: center;
   width: 100%;
 }
 
 #dollar-amt {
-  align-items: center;
+  @include flex-rules(row, center);
   border-radius: 50%;
-  display: flex;
   height: 70%;
-  justify-content: center;
   width: 60%;
 }
 
 #search-bar {
-  flex-direction: column;
-  justify-content: space-evenly;
+  @include flex-rules(column, space-evenly);
 }
 
 #search-list {
@@ -68,10 +66,9 @@ aside {
 }
 
 #trips {
-  display: flex;
-  flex-direction: column;
+  @include flex-rules(column, space-between);
   height: 20%;
-  justify-content: space-between;
+  padding: 1%;
   width: 100%;
 }
 
@@ -84,12 +81,14 @@ aside {
 
 #traveler-trip-btn-container,
 #agent-trip-btn-container {
+  align-self: flex-start;
   height: 25%;
+  width: 50%
 }
 
 .trip-filter-btn {
   height: 100%;
-  width: 10%;
+  width: 24%;
 }
 
 #main-content-results {
@@ -98,11 +97,9 @@ aside {
 }
 
 .pop-up-box {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  @include flex-rules(column, space-evenly);
+  background-color: lightblue;
   height: 50vh;
-  justify-content: space-evenly;
   left: 25%;
   position: absolute;
   top: 20%;
@@ -113,9 +110,7 @@ aside {
     width: 50%
   }
   label {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
+    @include flex-rules(row, space-between)
   }
   button {
     height: 10%;
@@ -123,14 +118,10 @@ aside {
   }
 }
 
+.login-inputs,
 .plan-trip-inputs {
   height: 10%;
   width: 70%;
-}
-
-.login-inputs {
-  height: 10%;
-  width: 70%
 }
  
 #trip-card {
@@ -140,18 +131,13 @@ aside {
 }
 
 .destination-card {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  @include flex-rules(column, space-evenly);
   height: 50%;
-  justify-content: space-evenly;
   margin-bottom: 5%;
   text-align: center;
   img {
     width: 80%
   };
-
-
 }
 
 .hide {

@@ -18,6 +18,12 @@ let destinationsRepo = []
 document.getElementById('login-btn').addEventListener('click', login)
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
 document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
+document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
+document.addEventListener('click', (e) => {
+  if(e.target.classList.contains('plan-trip-btn')) {
+    displayPostForm(e)
+  }
+})
 
 fetchData()
 
@@ -82,9 +88,14 @@ function travelerFilter(e) {
   domUpdates.filterTravelerTrips(e, currentUser)
 }
 
-document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
-
 function searchItems(e) {
   e.preventDefault()
   domUpdates.filterDestinations(destinationsRepo)
+}
+
+function displayPostForm(e) {
+  let planTripBtn = document.getElementById('plan-trip')
+  planTripBtn.classList.remove('hide')
+  let destinationName = e.target.parentNode.firstElementChild.innerText
+  document.getElementById('destination-input').value = destinationName
 }

@@ -123,7 +123,7 @@ const domUpdates = {
           <img src='${destination.image}' alt='${destination.alt}'>
           <p>Estimated Lodging: $${destination.estimatedLodgingCostPerDay} / day</p>
           <p>Estimated Flight: $${destination.estimatedFlightCostPerPerson} / person</p>
-          <button>Plan A Trip</button>
+          <button class='plan-trip-btn'>Plan A Trip</button>
         </div>
       `) 
     })
