@@ -55,6 +55,7 @@ aside {
 #aside-results {
   @include flex-rules(column, none);
   height: 80%; 
+  overflow: scroll;
   padding: 10% 0%;
   width: 100%;
 }
@@ -90,9 +91,6 @@ aside {
   padding: 1%;
   width: 100%;
 }
-// #main-header {
-//   width: 100%
-// }
 
 #main-title {
   height: 70%;
@@ -209,6 +207,10 @@ aside {
   height: 7%;
   margin-left: 3%;
   width: 5%;
+}
+
+#image-confirmation {
+  width: 70%
 }
 
 .hide {

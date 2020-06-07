@@ -30,6 +30,10 @@ document.addEventListener('click', (e) => {
   if(e.target.id === 'get-estimate-btn') {
     e.preventDefault()
     createTrip()
+    displayConfirmation()
+  }
+  if(e.target.id === 'book-btn') {
+    postNewTrip()
   }
 })
 
@@ -100,7 +104,7 @@ function searchItems(e) {
 }
 
 function createTrip() {
-    let postObj = {
+    let trip = {
       id: Date.now(),
       userID: currentUser.id,
       destinationID: +document.getElementById('plan-trip-title').firstElementChild.id,
@@ -110,18 +114,7 @@ function createTrip() {
       status: 'pending',
       suggestedActivities: []
     }
-    fetchCalls.postNewTrip(postObj)
-      .then(response => console.log(response))
-      .catch(err => console.error(err.message))
-
-    domUpdates.resetTravelerPostForm()
-    
-    let trips = fetchCalls.getTrips()
-    return Promise.resolve(trips)
-      .then(response => createTrips(response.trips))
-      .then(currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo))
-      .then(console.log(currentUser.allTrips))
-      .then(domUpdates.displayTravelerPending(currentUser, destinationsRepo))
+    return new Trip(trip)
   }
 
 function getDuration() {
@@ -132,3 +125,30 @@ function getDuration() {
   return end.diff(start, 'days')
 }
 
+function displayConfirmation() {
+  let trip = createTrip()
+  let destination = trip.getDestination(destinationsRepo)
+  let returnDate = document.getElementById('return-date').value
+  document.getElementById('plan-trip-confirmation').classList.remove('hide')
+  document.getElementById('plan-trip-confirmation-title').innerText = `Confirm your trip to ${destination.destination}`
+  document.getElementById('image-confirmation').src = destination.image
+  document.getElementById('departure-date-confirmation').innerText = `Departure Date: ${trip.date}`
+  document.getElementById('return-date-confirmation').innerText = `Return Date: ${moment(returnDate).format('YYYY/MM/DD')}`
+  document.getElementById('num-people-confirmation').innerText = `Number of Travelers: ${trip.travelers}`
+  document.getElementById('estimated-cost').innerText = `Estimated Cost: $${trip.calculateTripCost(destinationsRepo)}`
+}
+
+function postNewTrip() {
+  let postObj = createTrip()
+  fetchCalls.postNewTrip(postObj)
+    .then(response => console.log(response))
+    .catch(err => console.error(err.message))
+  
+  domUpdates.resetTravelerPostForm()
+  
+  let trips = fetchCalls.getTrips()
+  return Promise.resolve(trips)
+    .then(response => createTrips(response.trips))
+    .then(currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo))
+    .then(() => domUpdates.loadTravelerDash(currentUser, destinationsRepo))
+}

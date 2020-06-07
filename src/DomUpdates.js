@@ -172,10 +172,7 @@ const domUpdates = {
   displayPostForm(e) {
     let destination = e.target.parentNode
     document.getElementById('plan-trip-title').innerHTML = `<p id='${destination.parentNode.parentNode.id}'>Plan a trip to ${destination.firstElementChild.innerText}</p>`
-    document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
-    
-    console.log( document.getElementById('num-people-input').value)
-    
+    document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')    
     document.getElementById('plan-trip').classList.remove('hide')
   },
 

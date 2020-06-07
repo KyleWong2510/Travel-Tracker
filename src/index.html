@@ -58,6 +58,16 @@
           <label class="plan-trip-inputs" for="num-people-input"># of travelers: <input id="num-people-input" type="number" placeholder="1" min="1"></label>
           <button id="get-estimate-btn">Get Estimate</button>
         </form>
+        <section id="plan-trip-confirmation" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <h2 id="plan-trip-confirmation-title"></h2>
+          <img id="image-confirmation">
+          <p id="departure-date-confirmation"></p>
+          <p id="return-date-confirmation"></p>
+          <p id="num-people-confirmation"></p>
+          <p id="estimated-cost"></p>
+          <button id="book-btn">Confirm & Book</button>
+        </section>
         <section id="login" class="pop-up-box">
           <h2>Login</h2>
           <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username" value="traveler50"></label>
