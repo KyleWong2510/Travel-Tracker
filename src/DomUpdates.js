@@ -4,12 +4,14 @@ import moment from 'moment'
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
-  loadAgentDash(agent, travelersData) {
+  loadAgentDash(agent, travelersData, tripsRepo) {
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerText = `Annual Revenue: ${agent.calculateAnnualRevenue(travelersData)}`
     document.getElementById('search-input-title').innerText = 'Search Travelers'
     document.getElementById('search-input').placeholder = 'Enter name...'
+    this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
+    document.getElementById('main-title').innerText = 'Pending Trips'
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
   },
@@ -30,7 +32,7 @@ const domUpdates = {
     document.getElementById('main-content-results').innerHTML = ''
     trips.forEach(trip => {
       document.getElementById('main-content-results').insertAdjacentHTML('afterbegin', `
-        <div id='trip-card'>
+        <div id='agent-trip-card'>
           <div id='trip-card-ids'>
             <p>TripID: ${trip.id}</p>
             <p>TravelerID: ${trip.userID}</p>
@@ -74,15 +76,15 @@ const domUpdates = {
   filterAgentTrips(e, agent, tripsRepo) {
     if (e.target.id === 'agent-pending') {
       this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
-      document.getElementById('aside-title-text').innerText = 'Pending Trips'
+      document.getElementById('main-title').innerText = 'Pending Trips'
     }
     if (e.target.id === 'agent-current') {
       this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo))
-      document.getElementById('aside-title-text').innerText = 'Current Trips'
+      document.getElementById('main-title').innerText = 'Current Trips'
     }
     if (e.target.id === 'agent-all') {
       this.displayAgentTrips(tripsRepo)
-      document.getElementById('aside-title').innerText = 'All Trips'
+      document.getElementById('main-title').innerText = 'All Trips'
     }
   },
 

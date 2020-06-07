@@ -76,7 +76,7 @@ function login() {
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgentDash(currentUser, travelersRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
     
   }
   for (let i = 1; i < 51; i++) {
