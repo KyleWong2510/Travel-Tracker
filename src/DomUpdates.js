@@ -17,7 +17,7 @@ const domUpdates = {
   loadTravelerDash(traveler, destinations) {
     document.getElementById('traveler-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = `Welcome, ${traveler.name}`
-    document.getElementById('dollar-amt').innerText = `Annual Amount Spent: ${traveler.annualCost}`
+    document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${traveler.annualCost}`
     document.getElementById('main-title').innerText = 'Search Destinations'
     document.getElementById('search-input').placeholder = 'Enter Destination...'
     this.displayDestinations(destinations)
@@ -180,6 +180,18 @@ const domUpdates = {
     document.getElementById('plan-trip').reset()
     document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
     document.getElementById('plan-trip').classList.add('hide')
+  },
+
+  displayConfirmation(trip, destinationsData) {
+    let destination = trip.getDestination(destinationsData)
+    let returnDate = document.getElementById('return-date').value
+    document.getElementById('plan-trip-confirmation').classList.remove('hide')
+    document.getElementById('plan-trip-confirmation-title').innerText = `Confirm your trip to ${destination.destination}`
+    document.getElementById('image-confirmation').src = destination.image
+    document.getElementById('departure-date-confirmation').innerText = `Departure Date: ${trip.date}`
+    document.getElementById('return-date-confirmation').innerText = `Return Date: ${moment(returnDate).format('YYYY/MM/DD')}`
+    document.getElementById('num-people-confirmation').innerText = `Number of Travelers: ${trip.travelers}`
+    document.getElementById('estimated-cost').innerText = `Estimated Cost: $${trip.calculateTripCost(destinationsData)}`
   }
 }
 
