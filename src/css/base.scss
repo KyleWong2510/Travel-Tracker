@@ -161,14 +161,25 @@ aside {
   width: 80%
 }
 
+#approve-btn,
+#deny-btn {
+  visibility: hidden;
+}
+
 #trip-card {
   @include flex-rules(column, space-between);
   font-size: 1.1em;
   height: 30%;
   margin-bottom: 5%;
   padding: 1%;
-  width: 80%
+  width: 80%;
+
+  .category {
+    height: 50%;
+    width: 100%
+  }
 }
+
 
 #trip-card-name {
   justify-self: center;

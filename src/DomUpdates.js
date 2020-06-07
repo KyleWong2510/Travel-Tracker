@@ -4,13 +4,15 @@ import moment from 'moment'
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
-  loadAgentDash(agent, travelersData, tripsRepo) {
+  loadAgentDash(agent, travelersData, tripsRepo, date) {
+    console.log('date', date)
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerText = `Annual Revenue: ${agent.calculateAnnualRevenue(travelersData)}`
     document.getElementById('aside-title-text').innerText = 'Search Travelers'
     document.getElementById('traveler-search-input').placeholder = 'Enter name...'
     this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
+    this.displayTravelersNames(travelersData)
     document.getElementById('main-title').innerText = 'Pending Trips'
     document.querySelector('.traveler-search-bar').classList.add('hide')
     document.getElementById('main').classList.remove('hide')
@@ -22,14 +24,15 @@ const domUpdates = {
     document.getElementById('welcome-msg').innerText = `Welcome, ${traveler.name}`
     document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${traveler.annualCost}`
     document.getElementById('main-title').innerText = 'Search Destinations'
-    document.getElementById('search-input').placeholder = 'Enter Destination...'
+    document.getElementById('destination-search-input').placeholder = 'Enter Destination...'
     this.displayDestinations(destinations)
     this.displayTravelerPending(traveler, destinations)
+    document.querySelector('.agent-search-bar').classList.add('hide')
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
   },
 
-  displayAgentTrips(trips) {
+  displayAgentTrips(trips, date) {
     document.getElementById('main-content-results').innerHTML = ''
     trips.forEach(trip => {
       document.getElementById('main-content-results').insertAdjacentHTML('afterbegin', `
@@ -45,12 +48,23 @@ const domUpdates = {
             <p>Status: ${trip.status}</p>
           </div>
           <div id='status-btns'>
-            <button>Approve</button>
-            <button>Deny</button>
+            <button id='approve-btn'>Approve</button>
+            <button id='deny-btn'>Deny</button>
           </div>
         </div>
       `)
+      this.displayStatusBtns(trip, date)
     })
+  },
+
+  displayStatusBtns(trip, date) {
+    if(trip.date > date) {
+      document.getElementById('deny-btn').style.visibility = 'visible'
+    }
+    if(trip.status === 'pending') {
+      document.getElementById('deny-btn').style.visibility = 'visible'
+      document.getElementById('approve-btn').style.visibility = 'visible'
+    }
   },
 
   displayTravelerTrips(trips, destinationsData) {
@@ -61,12 +75,12 @@ const domUpdates = {
           <p id='trip-card-name'>${trip.getDestination(destinationsData).destination}</p>
           <div id='trip-card-body'>
             <div id='trip-card-ids'>
-              <p>Date: ${trip.date}</p>
-              <p>TripID: ${trip.id}</p>
+              <p class='category'>Date: ${trip.date}</p>
+              <p class='category'>TripID: ${trip.id}</p>
             </div>
             <div id='trip-card-info'>
-              <p>Duration: ${trip.duration}</p>
-              <p>Status: ${trip.status.toUpperCase()}</p>
+              <p class='category'>Duration: ${trip.duration} days</p>
+              <p class='category'>Status: ${trip.status.toUpperCase()}</p>
             </div>
           </div>
         </div>
@@ -74,19 +88,43 @@ const domUpdates = {
     })
   },
 
-  filterAgentTrips(e, agent, tripsRepo) {
+  filterAgentTrips(e, agent, tripsRepo, date) {
     if (e.target.id === 'agent-pending') {
-      this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
+      this.displayAgentTrips(agent.getPendingTrips(tripsRepo, date))
       document.getElementById('main-title').innerText = 'Pending Trips'
     }
     if (e.target.id === 'agent-current') {
-      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo))
+      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo), date)
       document.getElementById('main-title').innerText = 'Current Trips'
     }
     if (e.target.id === 'agent-all') {
-      this.displayAgentTrips(tripsRepo)
+      this.displayAgentTrips(tripsRepo, date)
       document.getElementById('main-title').innerText = 'All Trips'
     }
+  },
+
+  displayTravelersNames(travelers) {
+    travelers.sort((a, b) => a.name < b.name ? 1 : -1).forEach(traveler => {
+      document.getElementById('aside-results').insertAdjacentHTML('afterbegin', `
+        <p id='${traveler.name}'>${traveler.name}</p>
+      `)
+    })
+  },
+
+  filterTravelerNames(travelers) {
+    document.getElementById('aside-results').innerHTML = ''
+    let search = document.getElementById('traveler-search-input')
+    let searched = travelers.filter(traveler => {
+      return traveler.name.toLowerCase().includes(search.value.toLowerCase())
+    })
+    this.displayTravelersNames(searched)
+  },
+
+  displaySearchedTraveler(e, agent, destinationsData) {
+    let name = e.target.id
+    let foundUser = agent.searchTravelersByName(name)
+    document.getElementById('main-content-results').innerHTML = ''
+    this.displayTravelerPending(foundUser, destinationsData)
   },
 
   displayTravelerPending(traveler, destinationsData) {
