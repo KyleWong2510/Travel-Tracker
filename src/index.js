@@ -8,15 +8,34 @@ import Trip from '../src/Trip'
 
 // let agent;
 let currentUser;
-let currentTraveler;
 // let date = '2020/06/05'
 let date = moment().format('YYYY/MM/DD')
 let travelersRepo = []
 let tripsRepo = []
 let destinationsRepo = []
 
+// document.getElementById('close-btn').addEventListener('click', (e) => e.target.parentNode.classList.add('hide'))
 document.getElementById('login-btn').addEventListener('click', login)
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
+document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
+document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
+document.addEventListener('click', (e) => {
+  if(e.target.classList.contains('plan-trip-btn')) {
+    domUpdates.displayPostForm(e)
+  }
+  if(e.target.id === 'close-btn') {
+    e.preventDefault()
+    e.target.parentNode.classList.add('hide')
+  }
+  if(e.target.id === 'get-estimate-btn') {
+    e.preventDefault()
+    let trip = createTrip()
+    domUpdates.displayConfirmation(trip, destinationsRepo)
+  }
+  if(e.target.id === 'book-btn') {
+    postNewTrip()
+  }
+})
 
 fetchData()
 
@@ -31,12 +50,10 @@ function fetchData() {
       tripsData = response[1].trips;
       destinationsData = response[2].destinations
 
-      //why cant these be in a .then?
       createTrips(tripsData)
       createTravelers(travelersData, tripsRepo, destinationsData)
       destinationsRepo = destinationsData
     })
-    //why do console.logs outside of the promise still run if they are in a .then
     .catch(err => console.error(err.message))
 }
 
@@ -59,12 +76,13 @@ function login() {
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgent(currentUser, travelersRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo)
+    
   }
   for (let i = 1; i < 51; i++) {
     if(usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
       currentUser = travelersRepo[i - 1]
-      domUpdates.loadTraveler(currentUser)
+      domUpdates.loadTravelerDash(currentUser, destinationsRepo)
     } 
   }
   if(!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
@@ -75,7 +93,51 @@ function login() {
 function agentFilter(e) {
   domUpdates.filterAgentTrips(e, currentUser, tripsRepo)
 }
+
 function travelerFilter(e) {
-  domUpdates.filterTravelerTrips(e, currentUser)
+  domUpdates.filterTravelerTrips(e, currentUser, destinationsRepo)
 }
-document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
+
+function searchItems(e) {
+  e.preventDefault()
+  domUpdates.filterDestinations(destinationsRepo)
+}
+
+function createTrip() {
+    let trip = {
+      id: Date.now(),
+      userID: currentUser.id,
+      destinationID: +document.getElementById('plan-trip-title').firstElementChild.id,
+      travelers: +document.getElementById('num-people-input').value || +document.getElementById('num-people-input').placeholder,
+      date: moment(document.getElementById('departure-date').value).format('YYYY/MM/DD'),
+      duration: getDuration(),
+      status: 'pending',
+      suggestedActivities: []
+    }
+    return new Trip(trip)
+  }
+
+function getDuration() {
+  let startInput = document.getElementById('departure-date').value
+  let endInput = document.getElementById('return-date').value
+  let start = moment(startInput)
+  let end = moment(endInput)
+  return end.diff(start, 'days')
+}
+
+function postNewTrip() {
+  console.log('before', currentUser.allTrips)
+  let postObj = createTrip()
+  fetchCalls.postNewTrip(postObj)
+    .then(() => fetchCalls.getTrips())
+    .then(response => {
+      createTrips(response.trips)
+      currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
+      document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
+      domUpdates.displayTravelerPending(currentUser, destinationsRepo)
+    })
+   
+    .catch(err => console.error(err.message))
+  
+  domUpdates.resetTravelerPostForm()
+}

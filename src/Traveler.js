@@ -48,22 +48,6 @@ class Traveler {
       return sum
     }, 0)
   }
-
-  createTrip(tripInfo) {
-    let postObj = {
-      id: Date.now(),
-      userID: this.id,
-      destinationID: tripInfo.destinationID,
-      travelers: tripInfo.travelers,
-      date: tripInfo.date,
-      duration: tripInfo.duration,
-      status: 'pending',
-      suggestedActivities: []
-    }
-    fetchCalls.postNewTrip(postObj)
-      .then(response => console.log(response))
-      .catch(err => console.error(err.message))
-  }
 }
 
 export default Traveler

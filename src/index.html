@@ -19,13 +19,12 @@
       </aside>
       <section id="main-content">
         <section id="trips">
-          <h2 id="trip-title">Pending Trips</h2>
-          <section id="traveler-trip-btn-container" class="hide">
-            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
-            <button id="traveler-past" class="trip-filter-btn">Past</button>
-            <button id="traveler-current" class="trip-filter-btn">Current</button>
-            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
-          </section>
+          <h2 id="main-title">Search Destinations</h2>
+          <form id="search-bar">
+            <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
+            <input id="search-input" placeholder="Enter a destination...">
+            <button id=search-btn>Search</button>
+          </form>
           <section id="agent-trip-btn-container" class="hide">
             <button id="agent-pending" class="trip-filter-btn">Pending</button>
             <button id="agent-current" class="trip-filter-btn">Current</button>
@@ -37,23 +36,37 @@
         </section>
       </section>
       <aside id="search-data">
-        <form id="search-bar">
-          <label id="search-input-title" for="search-input"></label>
-          <input id="search-input" placeholder="Enter a destination...">
-          <button>Search</button>
-        </form>
-        <section id= "results">
+        <section id="aside-title">
+          <section id="aside-title-text">Pending Trips</section>
+          <section id="traveler-trip-btn-container" class="hide">
+            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
+            <button id="traveler-past" class="trip-filter-btn">Past</button>
+            <button id="traveler-current" class="trip-filter-btn">Current</button>
+            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
+          </section>
+        </section>
+        <section id="aside-results">
 
         </section>
       </aside>
     </main>
-        <section id="plan-trip" class="pop-up-box hide">
-          <h2>Plan A Trip</h2>
+        <form id="plan-trip" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <h2 id="plan-trip-title">Plan A Trip</h2>
           <label class="plan-trip-inputs" for="departure-date">Departure Date: <input type="date" id="departure-date"></label>
           <label class="plan-trip-inputs" for="return-date">Return Date: <input type="date" id="return-date"></label>
-          <label class="plan-trip-inputs" for="destination-input">Destination: <input id="destination-input" placeholder="Enter a destination..."></label>
           <label class="plan-trip-inputs" for="num-people-input"># of travelers: <input id="num-people-input" type="number" placeholder="1" min="1"></label>
-          <button>Get Estimate</button>
+          <button id="get-estimate-btn">Get Estimate</button>
+        </form>
+        <section id="plan-trip-confirmation" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <h2 id="plan-trip-confirmation-title"></h2>
+          <img id="image-confirmation">
+          <p id="departure-date-confirmation"></p>
+          <p id="return-date-confirmation"></p>
+          <p id="num-people-confirmation"></p>
+          <p id="estimated-cost"></p>
+          <button id="book-btn">Confirm & Book</button>
         </section>
         <section id="login" class="pop-up-box">
           <h2>Login</h2>
