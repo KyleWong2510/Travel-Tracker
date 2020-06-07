@@ -19,13 +19,12 @@
       </aside>
       <section id="main-content">
         <section id="trips">
-          <h2 id="trip-title">Pending Trips</h2>
-          <section id="traveler-trip-btn-container" class="hide">
-            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
-            <button id="traveler-past" class="trip-filter-btn">Past</button>
-            <button id="traveler-current" class="trip-filter-btn">Current</button>
-            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
-          </section>
+          <h2 id="main-title">Search Destinations</h2>
+          <form id="search-bar">
+            <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
+            <input id="search-input" placeholder="Enter a destination...">
+            <button id=search-btn>Search</button>
+          </form>
           <section id="agent-trip-btn-container" class="hide">
             <button id="agent-pending" class="trip-filter-btn">Pending</button>
             <button id="agent-current" class="trip-filter-btn">Current</button>
@@ -37,12 +36,16 @@
         </section>
       </section>
       <aside id="search-data">
-        <form id="search-bar">
-          <label id="search-input-title" for="search-input"></label>
-          <input id="search-input" placeholder="Enter a destination...">
-          <button id=search-btn>Search</button>
-        </form>
-        <section id= "search-list">
+        <section id="aside-title">
+          <section id="aside-title-text">Pending Trips</section>
+          <section id="traveler-trip-btn-container" class="hide">
+            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
+            <button id="traveler-past" class="trip-filter-btn">Past</button>
+            <button id="traveler-current" class="trip-filter-btn">Current</button>
+            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
+          </section>
+        </section>
+        <section id="aside-results">
 
         </section>
       </aside>
