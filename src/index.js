@@ -97,8 +97,8 @@ function searchItems(e) {
 }
 
 function displayPostForm(e) {
-  let planTripBtn = document.getElementById('plan-trip')
-  planTripBtn.classList.remove('hide')
-  let destinationName = e.target.parentNode.firstElementChild.innerText
-  document.getElementById('destination-input').value = destinationName
+  let destination = e.target.parentNode.firstElementChild.innerText
+  document.getElementById('plan-trip-title').innerText = `Plan a trip to ${destination}`
+  document.getElementById('departure-date').value = moment().format('YYYY-MM-DD')
+  document.getElementById('plan-trip').classList.remove('hide')
 }

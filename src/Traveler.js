@@ -49,6 +49,7 @@ class Traveler {
     }, 0)
   }
 
+  //Move to scripts
   createTrip(tripInfo) {
     let postObj = {
       id: Date.now(),
