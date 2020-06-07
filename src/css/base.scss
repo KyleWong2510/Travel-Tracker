@@ -127,8 +127,10 @@ aside {
 }
  
 #trip-card {
+  @include flex-rules(row, space-between);
   display: flex;
   font-size: 1.25em;
+  height: 20%;
   margin-bottom: 3%;
   padding: 1%;
   width: 80%
@@ -146,6 +148,9 @@ aside {
 
 #trip-card-info,
 #trip-card-ids {
+  @include flex-rules(column, space-around);
+  height: 100%;
+  text-align: center;
   width: 50%;
 }
 

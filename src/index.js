@@ -85,7 +85,7 @@ function agentFilter(e) {
 }
 
 function travelerFilter(e) {
-  domUpdates.filterTravelerTrips(e, currentUser)
+  domUpdates.filterTravelerTrips(e, currentUser, destinationsRepo)
 }
 
 function searchItems(e) {
