@@ -67,7 +67,8 @@ aside {
   width: 60%;
 }
 
-#search-bar {
+#agent-search-bar,
+#traveler-search-bar {
   @include flex-rules(column, space-between);
   height: 30%;
   width: 100%;

@@ -8,10 +8,11 @@ const domUpdates = {
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerText = `Annual Revenue: ${agent.calculateAnnualRevenue(travelersData)}`
-    document.getElementById('search-input-title').innerText = 'Search Travelers'
-    document.getElementById('search-input').placeholder = 'Enter name...'
+    document.getElementById('aside-title-text').innerText = 'Search Travelers'
+    document.getElementById('traveler-search-input').placeholder = 'Enter name...'
     this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
     document.getElementById('main-title').innerText = 'Pending Trips'
+    document.querySelector('.traveler-search-bar').classList.add('hide')
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
   },
