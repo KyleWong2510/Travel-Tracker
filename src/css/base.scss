@@ -1,5 +1,5 @@
 * {
-  border: solid 1px grey;
+  // border: solid 1px grey;
   box-sizing: border-box;
   color: black;
   margin: 0;
@@ -13,15 +13,31 @@
   justify-content: $justify
 }
 
+$title-font: 'Archivo', sans-serif;
+$body-font: 'Roboto', sans-serif;
+
 body {
-  @include flex-rules(column, none)
+  @include flex-rules(column, none);
+  background-image: url('../images/river-canyon.jpg');
+  background-size: 100%;
+  font-family: $body-font
 }
 
 header {
   @include flex-rules(row, center);
+  background-color: #3a403b;  
+  font-family: $title-font;
+  opacity: 70%;
   height: 15vh;
   width: 100vw;
+  h1 {
+    color: #c4dbdf
+  }
 }
+ h2 {
+   font-family: $title-font;
+ }
+
 
 main {
   display: flex;
@@ -126,24 +142,59 @@ aside {
 
 .pop-up-box {
   @include flex-rules(column, space-evenly);
-  background-color: lightblue;
+  // background-color: #feffff;
+  border-radius: 5%;
   height: 70vh;
   left: 25%;
+  opacity: 60%;
   padding: 3%;
   position: absolute;
   top: 20%;
   width: 50vw;
   z-index: 100;
+  &:hover {
+    opacity: 80%;
+  }
   input {
+    height: 60%;
+    margin-left: 3%;
     text-align: center;
-    width: 50%
+    width: 50%;
   }
   label {
-    @include flex-rules(row, space-between)
+    @include flex-rules(row, center);
+    font-size: 1.25em;
   }
   button {
     height: 10%;
-    width: 10%
+    width: 20%
+  }
+}
+
+#login {
+  background-color: #feffff;
+  color: #3a403b;
+  font-size: 1.1em;
+  input {
+    border: 2px solid #3a403b;
+    font-size: .9em;
+    &:focus {
+      background-color: #3a403b;
+      color: #feffff;
+      font-size: 1.1em
+    }
+  }
+  button {
+    background-color: #feffff;
+    border: 2px solid #3a403b;
+    color: #3a403b;
+    border-radius: 15px;
+    &:hover {
+      background-color: #3a403b;
+      border: 2px solid #c4dbdf ;
+      color: #feffff;
+      font-size: 1em;
+    }
   }
 }
 
