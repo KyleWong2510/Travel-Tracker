@@ -14,6 +14,7 @@ const domUpdates = {
     this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
     this.displayTravelersNames(travelersData)
     document.getElementById('main-title').innerText = 'Pending Trips'
+    document.body.style.backgroundImage = 'none'
     document.querySelector('.traveler-search-bar').classList.add('hide')
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
@@ -27,6 +28,7 @@ const domUpdates = {
     document.getElementById('destination-search-input').placeholder = 'Enter Destination...'
     this.displayDestinations(destinations)
     this.displayTravelerPending(traveler, destinations)
+    document.body.style.backgroundImage = 'none'
     document.querySelector('.agent-search-bar').classList.add('hide')
     document.getElementById('main').classList.remove('hide')
     document.getElementById('login').classList.add('hide')
