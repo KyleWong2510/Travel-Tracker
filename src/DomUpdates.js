@@ -7,9 +7,9 @@ const domUpdates = {
   loadAgentDash(agent, travelersData, tripsRepo, date) {
     console.log('date', date)
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
-    document.getElementById('welcome-msg').innerText = 'Welcome, Agent'
-    document.getElementById('dollar-amt').innerText = `Annual Revenue: ${agent.calculateAnnualRevenue(travelersData)}`
-    document.getElementById('aside-title-text').innerText = 'Search Travelers'
+    document.getElementById('welcome-msg-text').innerText = 'Welcome, Agent'
+    document.getElementById('dollar-amt').innerHTML = `<p>Annual Revenue:</p><p>$${agent.calculateAnnualRevenue(travelersData)}</p>`
+    document.getElementById('aside-title-text').innerHTML = '<p>Search Travelers</p>'
     document.getElementById('traveler-search-input').placeholder = 'Enter name...'
     this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
     this.displayTravelersNames(travelersData)
@@ -21,8 +21,8 @@ const domUpdates = {
 
   loadTravelerDash(traveler, destinations) {
     document.getElementById('traveler-trip-btn-container').classList.remove('hide')
-    document.getElementById('welcome-msg').innerText = `Welcome, ${traveler.name}`
-    document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${traveler.annualCost}`
+    document.getElementById('welcome-msg-text').innerHTML = `<p>Welcome, </p><p>${traveler.name}</p>`
+    document.getElementById('dollar-amt').innerHTML = `<p>Annual Amount Spent:</p><p>$${traveler.annualCost}</p>`
     document.getElementById('main-title').innerText = 'Search Destinations'
     document.getElementById('destination-search-input').placeholder = 'Enter Destination...'
     this.displayDestinations(destinations)
@@ -238,7 +238,8 @@ const domUpdates = {
 
   filterDestinations(destinationsRepo) {
     document.getElementById('main-content-results').innerHTML = ''
-    let search = document.getElementById('search-input')
+    let search = document.getElementById('destination-search-input')
+    console.log(search)
     let searched = destinationsRepo.filter(destination => {
       return destination.destination.toLowerCase().includes(search.value.toLowerCase())
     })
