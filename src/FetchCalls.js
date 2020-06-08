@@ -30,7 +30,7 @@ const fetchCalls = {
   },
 
   modifyTripStatus(statusInfo) {
-    return fetch(`${this.rootURL}trips/trips`, {
+    return fetch(`${this.rootURL}trips/updateTrip`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

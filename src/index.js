@@ -34,6 +34,9 @@ document.addEventListener('click', (e) => {
   if(e.target.id === 'book-btn') {
     postNewTrip()
   }
+  if(e.target.classList.contains('searched-traveler')) {
+    domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo)
+  }
 })
 
 fetchData()
@@ -144,4 +147,18 @@ function postNewTrip() {
     .catch(err => console.error(err.message))
   
   domUpdates.resetTravelerPostForm()
+}
+
+document.addEventListener('click', (e) => {
+  if(e.target.id === 'approve-btn') {
+    approveTrip(e)
+  }
+})
+
+function approveTrip(e) {
+  let id = e.target.parentNode.parentNode.id
+  console.log(id)
+  currentUser.changeStatus(id, 'approved')
+  e.target.parentNode.parentNode.classList.add('hide')
+  alert('Successfully Approved!')
 }

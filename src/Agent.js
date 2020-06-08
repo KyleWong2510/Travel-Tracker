@@ -35,9 +35,9 @@ class Agent {
     })
   }
 
-  changeStatus(trip, status) {
+  changeStatus(id, status) {
     let postObj = {
-      id: trip.id,
+      id: +id,
       status: status
     }
     fetchCalls.modifyTripStatus(postObj)
@@ -45,8 +45,8 @@ class Agent {
       .catch(err => console.error(err.message))
   }
 
-  cancelTrip(trip) {
-    fetchCalls.deleteTrip(trip.id)
+  cancelTrip(id) {
+    fetchCalls.deleteTrip(id)
       .then(response => response.json())
       .catch(err => console.error(err.message))
   }

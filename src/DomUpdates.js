@@ -36,7 +36,7 @@ const domUpdates = {
     document.getElementById('main-content-results').innerHTML = ''
     trips.forEach(trip => {
       document.getElementById('main-content-results').insertAdjacentHTML('afterbegin', `
-        <div id='agent-trip-card'>
+        <div id='${trip.id}' class='agent-trip-card'>
           <div id='trip-card-ids'>
             <p>TripID: ${trip.id}</p>
             <p>TravelerID: ${trip.userID}</p>
@@ -48,8 +48,8 @@ const domUpdates = {
             <p>Status: ${trip.status}</p>
           </div>
           <div id='status-btns'>
-            <button id='approve-btn'>Approve</button>
-            <button id='deny-btn'>Deny</button>
+            <button id='approve-btn' class='approve'>Approve</button>
+            <button id='deny-btn' class='deny'>Deny</button>
           </div>
         </div>
       `)
@@ -106,7 +106,7 @@ const domUpdates = {
   displayTravelersNames(travelers) {
     travelers.sort((a, b) => a.name < b.name ? 1 : -1).forEach(traveler => {
       document.getElementById('aside-results').insertAdjacentHTML('afterbegin', `
-        <p id='${traveler.name}'>${traveler.name}</p>
+        <button id="${traveler.name}" class='searched-traveler'>${traveler.name}</button>
       `)
     })
   },
@@ -120,11 +120,34 @@ const domUpdates = {
     this.displayTravelersNames(searched)
   },
 
-  displaySearchedTraveler(e, agent, destinationsData) {
+  displaySearchedTraveler(e, agent, travelersData, destinationsData) {
     let name = e.target.id
-    let foundUser = agent.searchTravelersByName(name)
-    document.getElementById('main-content-results').innerHTML = ''
-    this.displayTravelerPending(foundUser, destinationsData)
+    let foundUser = agent.searchTravelersByName(name, travelersData)
+    document.getElementById('searched-traveler-name').innerText = `${foundUser.name}`
+    document.getElementById('searched-traveler-amount-spent').innerText = `Amount spent this year: $${foundUser.annualCost}`
+    foundUser.allTrips.forEach(trip => {
+      document.getElementById('searched-traveler-trips').insertAdjacentHTML('afterbegin', `
+        <div id='${trip.id}' class='found-trip-card'>
+          <p id='trip-card-name'>${trip.getDestination(destinationsData).destination}</p>
+          <div id='trip-card-body'>
+            <div id='trip-card-ids'>
+              <p class='category'>Date: ${trip.date}</p>
+              <p class='category'>TripID: ${trip.id}</p>
+            </div>
+            <div id='trip-card-info'>
+              <p class='category'>Duration: ${trip.duration} days</p>
+              <p class='category'>Status: ${trip.status.toUpperCase()}</p>
+            </div>
+          </div>
+          <div id="status-btn-container">
+              <button id='approve-btn' class='approve'>Approve</button>
+              <button id='deny-btn' class='deny'>Deny</button>
+          </div>
+        </div>
+      `)
+    })
+    
+    document.getElementById('searched-traveler-details').classList.remove('hide')
   },
 
   displayTravelerPending(traveler, destinationsData) {
