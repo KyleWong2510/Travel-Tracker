@@ -35,7 +35,7 @@ document.addEventListener('click', (e) => {
     postNewTrip()
   }
   if(e.target.classList.contains('searched-traveler')) {
-    domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo)
+    domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date)
   }
 })
 
@@ -150,15 +150,27 @@ function postNewTrip() {
 }
 
 document.addEventListener('click', (e) => {
-  if(e.target.id === 'approve-btn') {
+  if(e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
     approveTrip(e)
+  }
+
+  if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
+    denyTrip(e)
   }
 })
 
 function approveTrip(e) {
   let id = e.target.parentNode.parentNode.id
-  console.log(id)
   currentUser.changeStatus(id, 'approved')
   e.target.parentNode.parentNode.classList.add('hide')
   alert('Successfully Approved!')
+  
+}
+
+function denyTrip(e) {
+  let id = Number(e.target.parentNode.parentNode.id)
+  console.log(e.target.parentNode.parentNode)
+  currentUser.cancelTrip(id)
+  e.target.parentNode.parentNode.classList.add('hide')
+  alert('Successfully Cancelled!')
 }

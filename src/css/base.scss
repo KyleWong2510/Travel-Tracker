@@ -162,8 +162,8 @@ aside {
   width: 80%
 }
 
-.approve-btn,
-.deny-btn {
+#approve-btn,
+#deny-btn {
   visibility: hidden;
 }
 
@@ -273,7 +273,6 @@ aside {
 }
 
 #searched-traveler-trips {
-  @include flex-rules(column, space-evenly);
   height: 90%;
   overflow: scroll;
   width: 100%

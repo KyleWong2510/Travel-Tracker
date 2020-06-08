@@ -59,6 +59,7 @@ const domUpdates = {
 
   displayStatusBtns(trip, date) {
     if(trip.date > date) {
+      console.log('in date')
       document.getElementById('deny-btn').style.visibility = 'visible'
     }
     if(trip.status === 'pending') {
@@ -120,7 +121,7 @@ const domUpdates = {
     this.displayTravelersNames(searched)
   },
 
-  displaySearchedTraveler(e, agent, travelersData, destinationsData) {
+  displaySearchedTraveler(e, agent, travelersData, destinationsData, date) {
     let name = e.target.id
     let foundUser = agent.searchTravelersByName(name, travelersData)
     document.getElementById('searched-traveler-name').innerText = `${foundUser.name}`
@@ -140,14 +141,25 @@ const domUpdates = {
             </div>
           </div>
           <div id="status-btn-container">
-              <button id='approve-btn' class='approve'>Approve</button>
-              <button id='deny-btn' class='deny'>Deny</button>
+              <button id='approve-btn-po' class='approve hide'>Approve</button>
+              <button id='deny-btn-po' class='deny hide'>Deny</button>
           </div>
         </div>
       `)
+      this.displayStatusBtnsPopOut(trip, date)
     })
     
     document.getElementById('searched-traveler-details').classList.remove('hide')
+  },
+
+  displayStatusBtnsPopOut(trip, date) {
+    if(trip.date > date) {
+      document.getElementById('deny-btn-po').classList.remove('hide')
+    }
+    if(trip.status === 'pending') {
+      document.getElementById('deny-btn-po').classList.remove('hide')
+      document.getElementById('approve-btn-po').classList.remove('hide')
+    }
   },
 
   displayTravelerPending(traveler, destinationsData) {
