@@ -6,19 +6,18 @@ import Agent from '../src/Agent'
 import Traveler from '../src/Traveler'
 import Trip from '../src/Trip'
 
-// let agent;
 let currentUser;
-// let date = '2020/06/05'
 let date = moment().format('YYYY/MM/DD')
 let travelersRepo = []
 let tripsRepo = []
 let destinationsRepo = []
 
-// document.getElementById('close-btn').addEventListener('click', (e) => e.target.parentNode.classList.add('hide'))
 document.getElementById('login-btn').addEventListener('click', login)
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
 document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
-document.getElementById('search-btn').addEventListener('click', (e) => searchItems(e))
+document.getElementById('destination-search-btn').addEventListener('click', (e) => searchDestinations(e))
+document.getElementById('traveler-search-btn').addEventListener('click', (e) => searchTravelers(e))
+
 document.addEventListener('click', (e) => {
   if(e.target.classList.contains('plan-trip-btn')) {
     domUpdates.displayPostForm(e)
@@ -34,6 +33,9 @@ document.addEventListener('click', (e) => {
   }
   if(e.target.id === 'book-btn') {
     postNewTrip()
+  }
+  if(e.target.classList.contains('searched-traveler')) {
+    domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date)
   }
 })
 
@@ -76,7 +78,7 @@ function login() {
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgentDash(currentUser, travelersRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date)
     
   }
   for (let i = 1; i < 51; i++) {
@@ -91,16 +93,21 @@ function login() {
 }
 
 function agentFilter(e) {
-  domUpdates.filterAgentTrips(e, currentUser, tripsRepo)
+  domUpdates.filterAgentTrips(e, currentUser, tripsRepo, date)
 }
 
 function travelerFilter(e) {
   domUpdates.filterTravelerTrips(e, currentUser, destinationsRepo)
 }
 
-function searchItems(e) {
+function searchDestinations(e) {
   e.preventDefault()
   domUpdates.filterDestinations(destinationsRepo)
+}
+
+function searchTravelers(e) {
+  e.preventDefault()
+  domUpdates.filterTravelerNames(travelersRepo)
 }
 
 function createTrip() {
@@ -140,4 +147,30 @@ function postNewTrip() {
     .catch(err => console.error(err.message))
   
   domUpdates.resetTravelerPostForm()
+}
+
+document.addEventListener('click', (e) => {
+  if(e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
+    approveTrip(e)
+  }
+
+  if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
+    denyTrip(e)
+  }
+})
+
+function approveTrip(e) {
+  let id = e.target.parentNode.parentNode.id
+  currentUser.changeStatus(id, 'approved')
+  e.target.parentNode.parentNode.classList.add('hide')
+  alert('Successfully Approved!')
+  
+}
+
+function denyTrip(e) {
+  let id = Number(e.target.parentNode.parentNode.id)
+  console.log(e.target.parentNode.parentNode)
+  currentUser.cancelTrip(id)
+  e.target.parentNode.parentNode.classList.add('hide')
+  alert('Successfully Cancelled!')
 }

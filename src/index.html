@@ -20,10 +20,10 @@
       <section id="main-content">
         <section id="trips">
           <h2 id="main-title">Search Destinations</h2>
-          <form id="search-bar">
+          <form class="traveler-search-bar">
             <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
-            <input id="search-input" placeholder="Enter a destination...">
-            <button id=search-btn>Search</button>
+            <input id="destination-search-input" placeholder="Enter a destination...">
+            <button id="destination-search-btn">Search</button>
           </form>
           <section id="agent-trip-btn-container" class="hide">
             <button id="agent-pending" class="trip-filter-btn">Pending</button>
@@ -38,6 +38,11 @@
       <aside id="search-data">
         <section id="aside-title">
           <section id="aside-title-text">Pending Trips</section>
+          <form class="agent-search-bar">
+            <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
+            <input id="traveler-search-input" placeholder="Enter a destination...">
+            <button id="traveler-search-btn">Search</button>
+          </form>
           <section id="traveler-trip-btn-container" class="hide">
             <button id="traveler-pending" class="trip-filter-btn">Pending</button>
             <button id="traveler-past" class="trip-filter-btn">Past</button>
@@ -68,10 +73,18 @@
           <p id="estimated-cost"></p>
           <button id="book-btn">Confirm & Book</button>
         </section>
+        <section id="searched-traveler-details" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <section id="searched-traveler-top">
+            <h2 id="searched-traveler-name"></h2>
+            <p id="searched-traveler-amount-spent"></p>
+          </section>
+          <section id="searched-traveler-trips"></section>
+        </section>
         <section id="login" class="pop-up-box">
           <h2>Login</h2>
-          <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username" value="traveler50"></label>
-          <label class="login-inputs" for="password-input">Password: <input id="password-input" placeholder="Enter Password" value="travel2020"></label>
+          <label class="login-inputs" for="username-input">Username: <input id="username-input" placeholder="Enter Username" value="agency"></label>
+          <label class="login-inputs" for="password-input">Password: <input type="password" id="password-input" placeholder="Enter Password" value="travel2020"></label>
           <button id="login-btn">Login</button>
         </section>
   </body>
