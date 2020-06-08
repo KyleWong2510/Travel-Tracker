@@ -13,6 +13,18 @@
   justify-content: $justify
 }
 
+@mixin button-rules() {
+  background-color: $dark-color;
+  border: solid 2px $light-color;
+  border-radius: 10px;
+  color: $light-color;
+  &:hover {
+    border: solid 2px $dark-color;
+    background-color: $light-color;
+    color: $dark-color;
+  }
+}
+
 $title-font: 'Archivo', sans-serif;
 $body-font: 'Roboto', sans-serif;
 $dark-color: #3a403b;
@@ -73,7 +85,7 @@ aside {
 }
 
 #aside-title {
-  @include flex-rules(column, space-between);
+  @include flex-rules(column, space-evenly);
   border-bottom: 2px solid $light-color;
   height: 20%;
   padding: 17% 3% 3%;
@@ -81,6 +93,13 @@ aside {
   
   section {
     color: $light-color;
+    font-size: 1.2em;
+  }
+
+  button {
+    @include button-rules();
+    height: 100%;
+    width: 23%
   }
 }
 
@@ -88,6 +107,7 @@ aside {
   width: 100%
 }
 
+//DO WE NEED INCLUDE?
 #aside-results {
   align-content: center;
   flex-direction: column;
@@ -97,25 +117,17 @@ aside {
   width: 100%;
 
   button {
-    background-color: $dark-color-transparent;
-    border: solid 2px $light-color;
-    border-radius: 10px;
-    color: $light-color;
+    @include button-rules();
     font-size: .75em;
     height: 8%;
     margin-bottom: 5%;
     width: 100%;
-
-    &:hover {
-      border: solid 2px $dark-color;
-      background-color: $light-color;
-      color: $dark-color;
-    }
   }
 }
 
 #dollar-amt {
   @include flex-rules(column, center);
+  background-color: $dark-color;
   border: 2px solid $light-color;
   border: 2px solid #feffff;
   border-radius: 10px;
@@ -170,15 +182,7 @@ aside {
   width: 50%;
 
   button {
-    background-color: $dark-color-transparent;
-    border: solid 2px $light-color;
-    border-radius: 5px;
-    color: $light-color;
-    &:hover {
-      background-color: $light-color;
-      border-color: $dark-color;
-      color: $dark-color;
-    }
+    @include button-rules();
   }
 }
 
@@ -225,6 +229,7 @@ aside {
     font-size: 1.25em;
   }
   button {
+    @include button-rules();
     height: 10%;
     width: 20%
   }
@@ -245,14 +250,8 @@ aside {
     }
   }
   button {
-    background-color: $light-color;
-    border: 2px solid $dark-color;
-    color: $dark-color;
-    border-radius: 15px;
+    @include button-rules();
     &:hover {
-      background-color: $dark-color;
-      border: 2px solid #c4dbdf ;
-      color: $light-color;
       font-size: 1em;
     }
   }
@@ -280,15 +279,20 @@ aside {
 
 #trip-card {
   @include flex-rules(column, space-between);
-  font-size: 1.1em;
-  height: 30%;
+  background-color: $dark-color;
+  border: 2px solid $light-color;
+  border-radius: 15px;
+  font-size: .75em;
+  height: 35%;
   margin-bottom: 5%;
-  padding: 1%;
-  width: 80%;
+  padding: 5%;
+  width: 100%;
 
   .category {
-    height: 50%;
-    width: 100%
+    border-top: solid 2px #feffff;
+    height: 23%;
+    padding-top: 5%;
+    width: 100%;
   }
 }
 
@@ -315,7 +319,7 @@ aside {
 
 #trip-card-body {
   @include flex-rules(row, space-evenly);
-  height: 50%;
+  height: 80%;
   width: 100%
 }
 
