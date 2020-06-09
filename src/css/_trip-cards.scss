@@ -1,0 +1,94 @@
+.agent-trip-card {
+  @include flex-rules(row, space-between);
+  background-color: $dark-color;
+  border: $light-border;
+  border-radius: 10px;
+  font-size: 1.1em;
+  height: 30%;
+  margin-bottom: 1%;
+  padding: 1%;
+  width: 80%;
+  p {
+    color: $light-color;
+  }
+  #status-btns {
+    @include flex-rules(column, space-evenly);
+    height: 100%;
+    width: 20%
+  }
+  button {
+    @include button-rules();
+    height: 40%;
+    width: 100%
+  }
+}
+
+#approve-btn,
+#deny-btn {
+  visibility: hidden;
+}
+
+#trip-card {
+  @include flex-rules(column, space-between);
+  background-color: $dark-color;
+  border: $light-border;
+  border-radius: 15px;
+  font-size: .75em;
+  height: 35%;
+  margin-bottom: 5%;
+  padding: 5% 0%;
+  width: 100%;
+  .category {
+    border-top: $light-border;
+    height: 23%;
+    padding-top: 5%;
+    width: 100%;
+  }
+}
+
+.found-trip-card {
+  @include flex-rules(column, space-between);
+  background: linear-gradient($dark-color, $dark-color-transparent);
+  border-radius: 10px;
+  font-size: 1.1em;
+  height: 50%;
+  margin: 0% 10% 5%;
+  padding: 3%;
+  width: 80%;
+  p {
+    color: $light-color;
+    height: 50%;
+    width: 100%
+  }
+}
+
+#trip-card-name {
+  justify-self: center;
+  height: 20%;
+  text-align: center;
+  width: 100%
+}
+
+#trip-card-body {
+  @include flex-rules(row, space-evenly);
+  height: 80%;
+  width: 100%
+}
+
+#trip-card-info,
+#trip-card-ids {
+  @include flex-rules(column, space-around);
+  height: 100%;
+  text-align: center;
+  width: 40%;
+}
+
+#status-btn-container {
+  @include flex-rules(row, space-evenly);
+  height: 30%;
+  width: 100%;
+  button {
+    height: 100%;
+    width: 40%
+  }
+}
