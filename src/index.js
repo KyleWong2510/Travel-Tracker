@@ -176,7 +176,7 @@ document.addEventListener('click', (e) => {
 // function approveTrip(e) {
 //   let id = e.target.parentNode.parentNode.id
 //   currentUser.changeStatus(id, 'approved')
-//     .then(updateAfterPost())
+//     // .then(updateAfterPost())
 //   alert('Successfully Approved!')
 // }
 
@@ -189,12 +189,11 @@ document.addEventListener('click', (e) => {
 
 //500 status code
 function approveTrip(e) {
-  let id = Number(e.target.parentNode.parentNode.id)
+  let id = e.target.parentNode.parentNode.id
   let postObj = {
-    id: id,
-    status: status
+    id: +id,
+    status: 'approved'
   }
-  console.log(typeof id)
   fetchCalls.modifyTripStatus(postObj)
     .then(() => fetchCalls.getTrips())
     .then(response => {
