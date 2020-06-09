@@ -105,7 +105,7 @@ aside {
   @include flex-rules(column, space-evenly);
   border-bottom: 2px solid $light-color;
   height: 20%;
-  padding: 17% 3% 3%;
+  padding: 17% 0% 3%;
   width: 100%;
   
   section {
@@ -114,7 +114,12 @@ aside {
 }
 
 #traveler-trip-btn-container {
-  width: 100%
+  height: 40%;
+  width: 100%;
+  button {
+    @include button-rules();
+    width: 23%
+  }
 }
 
 //DO WE NEED INCLUDE?
@@ -123,7 +128,7 @@ aside {
   flex-direction: column;
   height: 80%; 
   overflow: scroll;
-  padding: 10% 10%;
+  padding: 10% 5%;
   width: 100%;
 
   button {
@@ -166,10 +171,25 @@ aside {
   }
 }
 
-#traveler-search-bar {
-  @include flex-rules(column, space-between);
+.traveler-search-bar {
+  @include flex-rules(row, space-between);
   height: 30%;
-  width: 100%;
+  width: 50%;
+
+  input {
+    border-radius: 10px 0px 0px 10px;
+    border: 0;
+    height: 100%;
+    padding: 3%;
+    width: 77%;
+  }
+
+  button {
+    @include button-rules();
+    border-radius: 0px 10px 10px 0px;
+    height: 100%;
+    width: 23%;
+  }
 }
 
 #search-list {
@@ -248,12 +268,29 @@ aside {
   }
 }
 
+
+#plan-trip {
+  background-color: $light-color;
+
+  label {
+    width: 40%
+  }
+
+  input {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 5%;
+    padding: 1%;
+    text-align: center;
+    width: 55%;
+  }
+}
+
 #login {
   background-color: $light-color;
   color: $dark-color;
   font-size: 1.1em;
   opacity: 60%;
-
   &:hover {
     opacity: 80%;
   }
@@ -261,10 +298,10 @@ aside {
     border: 2px solid $dark-color;
     border-radius: 10px;
     font-size: .9em;
-    height: 60%;
+    height: 100%;
     margin-left: 3%;
     text-align: center;
-    width: 50%;
+    width: 70%;
     &:focus {
       background-color: $dark-color;
       color: $light-color;
@@ -278,11 +315,6 @@ aside {
 
 }
 
-.login-inputs,
-.plan-trip-inputs {
-  height: 10%;
-  width: 70%;
-}
  
 .agent-trip-card {
   @include flex-rules(row, space-between);
@@ -325,7 +357,7 @@ aside {
   font-size: .75em;
   height: 35%;
   margin-bottom: 5%;
-  padding: 5%;
+  padding: 5% 0%;
   width: 100%;
 
   .category {
@@ -377,20 +409,40 @@ aside {
   height: 75%;
   margin-bottom: 5%;
   text-align: center;
+
   img {
+    border-radius: 10px;
     width: 60%
   };
-}
 
-.destination-info {
-  @include flex-rules(row, space-between)
-}
+  .destination-info {
+    @include flex-rules(row, space-between);
+    background-color: $dark-color;
+    border: 2px solid $light-color;
+    border-radius: 15px;
+    padding: 3%;
 
-.destination-costs {
-  @include flex-rules(column, space-evenly);
-  height:100%;
-  padding: 3%;
-  width: 100%
+    h3 {
+      color: $light-color
+    }
+
+    p {
+      color: $light-color
+    }
+  };
+  
+  .destination-costs {
+    @include flex-rules(column, space-evenly);
+    height:100%;
+    padding: 3%;
+    width: 100%
+  };
+
+  button {
+    @include button-rules();
+    height: 15%;
+    width: 40%
+  }
 }
 
 #trip-card-info,

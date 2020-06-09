@@ -78,7 +78,7 @@ function login() {
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
     
   }
   for (let i = 1; i < 51; i++) {
@@ -111,18 +111,18 @@ function searchTravelers(e) {
 }
 
 function createTrip() {
-    let trip = {
-      id: Date.now(),
-      userID: currentUser.id,
-      destinationID: +document.getElementById('plan-trip-title').firstElementChild.id,
-      travelers: +document.getElementById('num-people-input').value || +document.getElementById('num-people-input').placeholder,
-      date: moment(document.getElementById('departure-date').value).format('YYYY/MM/DD'),
-      duration: getDuration(),
-      status: 'pending',
-      suggestedActivities: []
-    }
-    return new Trip(trip)
+  let trip = {
+    id: Date.now(),
+    userID: currentUser.id,
+    destinationID: +document.getElementById('plan-trip-title').firstElementChild.id,
+    travelers: +document.getElementById('num-people-input').value || +document.getElementById('num-people-input').placeholder,
+    date: moment(document.getElementById('departure-date').value).format('YYYY/MM/DD'),
+    duration: getDuration(),
+    status: 'pending',
+    suggestedActivities: []
   }
+  return new Trip(trip)
+}
 
 function getDuration() {
   let startInput = document.getElementById('departure-date').value
@@ -133,20 +133,30 @@ function getDuration() {
 }
 
 function postNewTrip() {
-  console.log('before', currentUser.allTrips)
   let postObj = createTrip()
   fetchCalls.postNewTrip(postObj)
     .then(() => fetchCalls.getTrips())
     .then(response => {
       createTrips(response.trips)
-      currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
-      document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
-      domUpdates.displayTravelerPending(currentUser, destinationsRepo)
+      updateAfterPost()
     })
-   
+    .then(alert('Successfully Booked!'))
     .catch(err => console.error(err.message))
-  
   domUpdates.resetTravelerPostForm()
+}
+
+function updateAfterPost() {
+  console.log('update')
+  if(currentUser instanceof Agent) {
+    console.log(currentUser)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
+  } else {
+    console.log(currentUser)
+    currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
+    domUpdates.loadTravelerDash(currentUser, destinationsRepo)
+  }
+  // document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
+  // domUpdates.displayTravelerPending(currentUser, destinationsRepo)
 }
 
 document.addEventListener('click', (e) => {
@@ -157,20 +167,53 @@ document.addEventListener('click', (e) => {
   if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
     denyTrip(e)
   }
+
+  if(e.target.id === 'book-btn') {
+    document.getElementById('plan-trip-confirmation').classList.add('hide')
+  }
 })
 
+// function approveTrip(e) {
+//   let id = e.target.parentNode.parentNode.id
+//   currentUser.changeStatus(id, 'approved')
+//     // .then(updateAfterPost())
+//   alert('Successfully Approved!')
+// }
+
+// function denyTrip(e) {
+//   let id = Number(e.target.parentNode.parentNode.id)
+//   currentUser.cancelTrip(id)
+//     .then(updateAfterPost())
+//   alert('Successfully Cancelled!')
+// }
+
+//500 status code
 function approveTrip(e) {
   let id = e.target.parentNode.parentNode.id
-  currentUser.changeStatus(id, 'approved')
-  e.target.parentNode.parentNode.classList.add('hide')
-  alert('Successfully Approved!')
-  
+  let postObj = {
+    id: +id,
+    status: 'approved'
+  }
+  fetchCalls.modifyTripStatus(postObj)
+    .then(() => fetchCalls.getTrips())
+    .then(response => {
+      createTrips(response.trips)
+      updateAfterPost()
+    })
+    .then(alert('Successfully Approved!'))
+    .catch(err => console.error(err.message))
 }
 
 function denyTrip(e) {
   let id = Number(e.target.parentNode.parentNode.id)
-  console.log(e.target.parentNode.parentNode)
-  currentUser.cancelTrip(id)
+  fetchCalls.deleteTrip(id)
+    .then(() => fetchCalls.getTrips())
+    .then(response => {
+      createTrips(response.trips)
+      updateAfterPost()
+    })
+    .then(alert('Successfully Cancelled!'))
+    .catch(err => console.error(err))
+
   e.target.parentNode.parentNode.classList.add('hide')
-  alert('Successfully Cancelled!')
 }
