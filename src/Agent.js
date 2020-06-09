@@ -32,22 +32,22 @@ class Agent {
   }
 
   //Need to call createTrips from index
-  changeStatus(id, status) {
-    let postObj = {
-      id: +id,
-      status: status
-    }
-    return fetchCalls.modifyTripStatus(postObj)
-      .then(() => fetchCalls.getTrips())
-      .then(response => console.log(response))
-      .catch(err => console.error(err.message))
-  }
+  // changeStatus(id, status) {
+  //   let postObj = {
+  //     id: +id,
+  //     status: status
+  //   }
+  //   return fetchCalls.modifyTripStatus(postObj)
+  //     .then(() => fetchCalls.getTrips())
+  //     .then(response => console.log(response))
+  //     .catch(err => console.error(err.message))
+  // }
 
-  cancelTrip(id) {
-    return fetchCalls.deleteTrip(id)
-      .then(() => fetchCalls.getTrips())
-      .catch(err => console.error(err.message))
-  }
+  // cancelTrip(id) {
+  //   return fetchCalls.deleteTrip(id)
+  //     .then(() => fetchCalls.getTrips())
+  //     .catch(err => console.error(err.message))
+  // }
 }
 
 export default Agent

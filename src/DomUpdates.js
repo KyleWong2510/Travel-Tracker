@@ -270,17 +270,6 @@ const domUpdates = {
     document.getElementById('return-date-confirmation').innerText = `Return Date: ${moment(returnDate).format('YYYY/MM/DD')}`
     document.getElementById('num-people-confirmation').innerText = `Number of Travelers: ${trip.travelers}`
     document.getElementById('estimated-cost').innerText = `Estimated Cost: $${trip.calculateTripCost(destinationsData)}`
-  },
-
-  updateAfterPost(currentUser, travelersRepo, tripsRepo, destinationsRepo) {
-    if(currentUser instanceof Agent) {
-      this.loadAgentDash(currentUser, travelersRepo, tripsRepo)
-    } else {
-      currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
-      this.loadTravelerDash(currentUser, destinationsRepo)
-    }
-    // document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
-    // domUpdates.displayTravelerPending(currentUser, destinationsRepo)
   }
 }
 
