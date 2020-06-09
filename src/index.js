@@ -192,7 +192,6 @@ function approveTrip(e) {
   currentUser.changeStatus(id, 'approved')
   .then(tripsData => createTrips(tripsData.trips))  
   .then(updateAfterPost)
-  // .then(() => domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date))
   alert('Successfully Approved!')
 }
 

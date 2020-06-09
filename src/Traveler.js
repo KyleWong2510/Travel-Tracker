@@ -1,6 +1,4 @@
-// let date = '2020/10/15'
 import moment from 'moment'
-import fetchCalls from '../src/FetchCalls'
 
 class Traveler {
   constructor(traveler, tripsData, destinationsData) {
