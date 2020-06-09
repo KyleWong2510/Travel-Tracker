@@ -27,7 +27,6 @@ class Traveler {
     }
   }
 
-  //pass arr and have agent and traveler inherit?
   getCurrentTrips(date) {
     return this.allTrips.filter(trip => {
       let start = moment(trip.date).format('YYYY/MM/DD');
@@ -42,7 +41,7 @@ class Traveler {
     let date = moment().format('YYYY/MM/DD')
     let year = date.split('/')[0]
     return this.allTrips.reduce((sum, trip) => {
-      if(trip.date.split('/')[0] === year) {
+      if(trip.date.split('/')[0] === year && trip.status === 'approved') {
         sum += trip.calculateTripCost(destinationsData)
       }
       return sum

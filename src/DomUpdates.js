@@ -4,8 +4,8 @@ import moment from 'moment'
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
-  loadAgentDash(agent, travelersData, tripsRepo, date) {
-    console.log('date', date)
+  loadAgentDash(agent, travelersData, tripsRepo) {
+    console.log('inside')
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg-text').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerHTML = `<p>Annual Revenue:</p><p>$${agent.calculateAnnualRevenue(travelersData)}</p>`
@@ -262,6 +262,7 @@ const domUpdates = {
   displayConfirmation(trip, destinationsData) {
     let destination = trip.getDestination(destinationsData)
     let returnDate = document.getElementById('return-date').value
+    document.getElementById('plan-trip').classList.add('hide')
     document.getElementById('plan-trip-confirmation').classList.remove('hide')
     document.getElementById('plan-trip-confirmation-title').innerText = `Confirm your trip to ${destination.destination}`
     document.getElementById('image-confirmation').src = destination.image
@@ -269,6 +270,17 @@ const domUpdates = {
     document.getElementById('return-date-confirmation').innerText = `Return Date: ${moment(returnDate).format('YYYY/MM/DD')}`
     document.getElementById('num-people-confirmation').innerText = `Number of Travelers: ${trip.travelers}`
     document.getElementById('estimated-cost').innerText = `Estimated Cost: $${trip.calculateTripCost(destinationsData)}`
+  },
+
+  updateAfterPost(currentUser, travelersRepo, tripsRepo, destinationsRepo) {
+    if(currentUser instanceof Agent) {
+      this.loadAgentDash(currentUser, travelersRepo, tripsRepo)
+    } else {
+      currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
+      this.loadTravelerDash(currentUser, destinationsRepo)
+    }
+    // document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
+    // domUpdates.displayTravelerPending(currentUser, destinationsRepo)
   }
 }
 

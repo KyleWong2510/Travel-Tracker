@@ -1,10 +1,6 @@
 import fetchCalls from '../src/FetchCalls'
 import moment from 'moment'
 class Agent {
-  // constructor() {
-    // this.annualRevenue = this.calculateAnnualRevenue(travelersData)
-    // this.pendingTrips = this.getPendingTrips(tripsData)
-  // }
 
   searchTravelersByName(name, travelersData) {
     if(!Array.isArray(travelersData)) {
@@ -35,19 +31,21 @@ class Agent {
     })
   }
 
+  //Need to call createTrips from index
   changeStatus(id, status) {
     let postObj = {
       id: +id,
       status: status
     }
-    fetchCalls.modifyTripStatus(postObj)
-      .then(response => response.json())
+    return fetchCalls.modifyTripStatus(postObj)
+      .then(() => fetchCalls.getTrips())
+      .then(response => console.log(response))
       .catch(err => console.error(err.message))
   }
 
   cancelTrip(id) {
-    fetchCalls.deleteTrip(id)
-      .then(response => response.json())
+    return fetchCalls.deleteTrip(id)
+      .then(() => fetchCalls.getTrips())
       .catch(err => console.error(err.message))
   }
 }
