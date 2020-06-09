@@ -38,10 +38,10 @@ describe('Traveler', () => {
     expect(traveler.allTrips).to.deep.equal([tripsData[0], tripsData[1], tripsData[4]])
   })
 
-  // it('should print a message if the argument passed is the wrong data type', () => {
-  //   let badTripData = 'trips'
-  //   expect(traveler.getTravelerTrips(badTripData)).to.be.a.string('Wrong data type')
-  // })
+  it('should print a message if the argument passed is the wrong data type', () => {
+    let badTripData = 'trips'
+    expect(traveler.getTravelerTrips(badTripData)).to.equal('The array is not valid')
+  })
 
   it('should be able to return trips before a given date', () => {
     traveler.getTravelerTrips(tripsData)
@@ -53,24 +53,19 @@ describe('Traveler', () => {
     expect(traveler.filterTripsByDate('2020/09/04', 'after')).to.deep.equal([tripsData[1]])
   })
 
-  // it('should print a message if the date parameter is not valid', () => {
-  //   traveler.getTravelerTrips(tripData)
-  //   expect(traveler.filterTripsByDate('2020-04-30', 'on')).to.throw(Error(''))
-  // })
+  it('should still work if the date is in another format', () => {
+    traveler.getTravelerTrips(tripsData)
+    expect(traveler.filterTripsByDate('Sept. 4, 2020', 'after')).to.deep.equal([tripsData[1]])
+  })
 
-  // it('should print a message if the time parameter is not valid', () => {
-  //   traveler.getTravelerTrips(tripData)
-  //   expect(traveler.filterTripsByDate('2020/04/30', 'now')).to.throw(Error(''))
-  // })
+  it('should print a message if the time parameter is not valid', () => {
+    traveler.getTravelerTrips(tripsData)
+    expect(traveler.filterTripsByDate('2020/04/30', 'now')).to.equal('Invalid time argument')
+  })
 
   // HOW TO TEST FOR A DYNAMIC DATE?
   it.skip('should be able to calculate a total cost for trips this calendar year', () => {
     expect(traveler.calculateAnnualCost(destinations)).to.equal(10505)
     expect(traveler.annualCost).to.equal(10505)
-  })
-
-  //SPIES TEST
-  it('should be able to create a trip', () => {
-    expect(traveler.createTrip())
   })
 })

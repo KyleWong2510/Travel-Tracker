@@ -11,10 +11,20 @@ class Trip {
   }
 
   getDestination(destinationsData) {
+    if(!Array.isArray(destinationsData) || destinationsData.length === 0) {
+      console.log('The array is not valid')
+      return 'The array is not valid'
+    }
+
     return destinationsData.find(destination => destination.id === this.destinationID)
   }
 
   calculateTripCost(destinationsData) {
+    if(!Array.isArray(destinationsData) || destinationsData.length === 0) {
+      console.log('The array is not valid')
+      return 'The array is not valid'
+    }
+
     let destination = this.getDestination(destinationsData)
     let airfare = this.travelers * destination.estimatedFlightCostPerPerson
     let lodging = this.duration * destination.estimatedLodgingCostPerDay

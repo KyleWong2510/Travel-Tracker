@@ -59,12 +59,17 @@ describe('Trip', () => {
     expect(trip.getDestination(destinations)).to.equal(destinations[3])
   })
 
-  // it('should be print a message if the destinationsData is in the wrong format', () => {
-  //   let data = {}
-  //   expect(trip.getDestination(data)).to.equal(destinationsData[3])
-  // })
+  it('should be print a message if the destinationsData is in the wrong format', () => {
+    let data = {}
+    expect(trip.getDestination(data)).to.equal('The array is not valid')
+  })
 
   it('should be able to calculate the trip cost', () => {
     expect(trip.calculateTripCost(destinations)).to.equal(957)
+  })
+
+  it('should be print a message if the destinationsData is in the wrong format', () => {
+    let data = {}
+    expect(trip.calculateTripCost(data)).to.equal('The array is not valid')
   })
 })
