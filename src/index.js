@@ -136,17 +136,22 @@ function postNewTrip() {
   let postObj = createTrip()
   fetchCalls.postNewTrip(postObj)
     .then(() => fetchCalls.getTrips())
-    .then(response => createTrips(response.trips))
-    .then(updateAfterPost())
+    .then(response => {
+      createTrips(response.trips)
+      updateAfterPost()
+    })
     .then(alert('Successfully Booked!'))
     .catch(err => console.error(err.message))
   domUpdates.resetTravelerPostForm()
 }
 
 function updateAfterPost() {
+  console.log('update')
   if(currentUser instanceof Agent) {
+    console.log(currentUser)
     domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
   } else {
+    console.log(currentUser)
     currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
     domUpdates.loadTravelerDash(currentUser, destinationsRepo)
   }
@@ -184,26 +189,30 @@ document.addEventListener('click', (e) => {
 
 //500 status code
 function approveTrip(e) {
-  let id = e.target.parentNode.parentNode.id
+  let id = Number(e.target.parentNode.parentNode.id)
   let postObj = {
-    id: +id,
+    id: id,
     status: status
   }
+  console.log(typeof id)
   fetchCalls.modifyTripStatus(postObj)
     .then(() => fetchCalls.getTrips())
-    .then(response => createTrips(response.trips))
-    .then(updateAfterPost())
+    .then(response => {
+      createTrips(response.trips)
+      updateAfterPost()
+    })
     .then(alert('Successfully Approved!'))
     .catch(err => console.error(err.message))
-
 }
 
 function denyTrip(e) {
   let id = Number(e.target.parentNode.parentNode.id)
   fetchCalls.deleteTrip(id)
     .then(() => fetchCalls.getTrips())
-    .then(response => createTrips(response.trips))
-    .then(updateAfterPost())
+    .then(response => {
+      createTrips(response.trips)
+      updateAfterPost()
+    })
     .then(alert('Successfully Cancelled!'))
     .catch(err => console.error(err))
 
