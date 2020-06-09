@@ -17,27 +17,78 @@ document.getElementById('agent-trip-btn-container').addEventListener('click', (e
 document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
 document.getElementById('destination-search-btn').addEventListener('click', (e) => searchDestinations(e))
 document.getElementById('traveler-search-btn').addEventListener('click', (e) => searchTravelers(e))
-
 document.addEventListener('click', (e) => {
+  displayPostFormHandler(e)
+  closeBtnHandler(e)
+  getEstimateBtnHandler(e)
+  bookBtnHandler(e)
+  displaySearchedTravelerHandler(e)
+  approveBtnHandler(e)
+  denyBtnHandler(e)
+})
+function agentFilter(e) {
+  domUpdates.filterAgentTrips(e, currentUser, tripsRepo, date, destinationsRepo, travelersRepo)
+}
+
+function travelerFilter(e) {
+  domUpdates.filterTravelerTrips(e, currentUser, destinationsRepo)
+}
+
+function searchDestinations(e) {
+  e.preventDefault()
+  domUpdates.filterDestinations(destinationsRepo)
+}
+
+function searchTravelers(e) {
+  e.preventDefault()
+  domUpdates.filterTravelerNames(travelersRepo)
+}
+
+function displayPostFormHandler(e) {
   if(e.target.classList.contains('plan-trip-btn')) {
     domUpdates.displayPostForm(e)
   }
+}
+
+function closeBtnHandler(e) {
   if(e.target.id === 'close-btn') {
     e.preventDefault()
     e.target.parentNode.classList.add('hide')
   }
+}
+
+function getEstimateBtnHandler(e) {
   if(e.target.id === 'get-estimate-btn') {
     e.preventDefault()
     let trip = createTrip()
     domUpdates.displayConfirmation(trip, destinationsRepo)
   }
+}
+
+function bookBtnHandler(e) {
   if(e.target.id === 'book-btn') {
     postNewTrip()
+    document.getElementById('plan-trip-confirmation').classList.add('hide')
   }
+}
+
+function displaySearchedTravelerHandler(e) {
   if(e.target.classList.contains('searched-traveler')) {
     domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date)
   }
-})
+}
+
+function approveBtnHandler(e) {
+  if(e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
+    approveTrip(e)
+  }
+}
+
+function denyBtnHandler(e) {
+  if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
+    denyTrip(e)
+  }
+}
 
 fetchData()
 
@@ -90,24 +141,6 @@ function login(e) {
   }
 }
 
-function agentFilter(e) {
-  domUpdates.filterAgentTrips(e, currentUser, tripsRepo, date, destinationsRepo, travelersRepo)
-}
-
-function travelerFilter(e) {
-  domUpdates.filterTravelerTrips(e, currentUser, destinationsRepo)
-}
-
-function searchDestinations(e) {
-  e.preventDefault()
-  domUpdates.filterDestinations(destinationsRepo)
-}
-
-function searchTravelers(e) {
-  e.preventDefault()
-  domUpdates.filterTravelerNames(travelersRepo)
-}
-
 function createTrip() {
   let trip = {
     id: Date.now(),
@@ -154,26 +187,11 @@ function updateAfterPost() {
   }
 }
 
-document.addEventListener('click', (e) => {
-  if(e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
-    approveTrip(e)
-  }
-
-  if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
-    denyTrip(e)
-  }
-
-  if(e.target.id === 'book-btn') {
-    document.getElementById('plan-trip-confirmation').classList.add('hide')
-  }
-})
-
 function approveTrip(e) {
   let id = e.target.parentNode.parentNode.id
   currentUser.changeStatus(id, 'approved')
   .then(tripsData => createTrips(tripsData.trips))  
   .then(updateAfterPost)
-  // .then(() => domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date))
   alert('Successfully Approved!')
 }
 
@@ -184,8 +202,4 @@ function denyTrip(e) {
     .then(updateAfterPost)
     .then(e.target.parentNode.parentNode.classList.add('hide'))
   alert('Successfully Cancelled!')
-}
-
-function refreshTravelerDetails() {
-
 }

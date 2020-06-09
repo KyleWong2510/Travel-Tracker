@@ -149,7 +149,6 @@ const domUpdates = {
       `)
       this.displayStatusBtnsPopOut(trip, date)
     })
-    
     document.getElementById('searched-traveler-details').classList.remove('hide')
   },
 
@@ -240,7 +239,6 @@ const domUpdates = {
   filterDestinations(destinationsRepo) {
     document.getElementById('main-content-results').innerHTML = ''
     let search = document.getElementById('destination-search-input')
-    console.log(search)
     let searched = destinationsRepo.filter(destination => {
       return destination.destination.toLowerCase().includes(search.value.toLowerCase())
     })
