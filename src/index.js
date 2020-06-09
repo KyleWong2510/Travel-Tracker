@@ -12,7 +12,7 @@ let travelersRepo = []
 let tripsRepo = []
 let destinationsRepo = []
 
-document.getElementById('login-btn').addEventListener('click', login)
+document.getElementById('login-btn').addEventListener('click', (e) => login(e))
 document.getElementById('agent-trip-btn-container').addEventListener('click', (e) => agentFilter(e))
 document.getElementById('traveler-trip-btn-container').addEventListener('click', (e) => travelerFilter(e))
 document.getElementById('destination-search-btn').addEventListener('click', (e) => searchDestinations(e))
@@ -67,18 +67,16 @@ function createTrips(trips) {
   tripsRepo = trips.map(trip => new Trip(trip))
 }
 
-function login() {
+function login(e) {
+  e.preventDefault()
   const usernameInput = document.getElementById('username-input')
   const passwordInput = document.getElementById('password-input')
-  if(!usernameInput.value || !passwordInput.value) {
-    alert('Please enter a value into both input fields')
-  }
   if (passwordInput.value.length > 0 && passwordInput.value !== 'travel2020') {
     alert('Sorry, incorrect password')
   }
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
-    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date, destinationsRepo)
     
   }
   for (let i = 1; i < 51; i++) {
@@ -93,7 +91,7 @@ function login() {
 }
 
 function agentFilter(e) {
-  domUpdates.filterAgentTrips(e, currentUser, tripsRepo, date)
+  domUpdates.filterAgentTrips(e, currentUser, tripsRepo, date, destinationsRepo, travelersRepo)
 }
 
 function travelerFilter(e) {
@@ -146,17 +144,14 @@ function postNewTrip() {
 }
 
 function updateAfterPost() {
-  console.log('update')
   if(currentUser instanceof Agent) {
     console.log(currentUser)
-    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo)
+    domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date, destinationsRepo)
   } else {
     console.log(currentUser)
     currentUser.allTrips = currentUser.getTravelerTrips(tripsRepo)
     domUpdates.loadTravelerDash(currentUser, destinationsRepo)
   }
-  // document.getElementById('dollar-amt').innerText = `Annual Amount Spent: $${currentUser.calculateAnnualCost(destinationsRepo)}`
-  // domUpdates.displayTravelerPending(currentUser, destinationsRepo)
 }
 
 document.addEventListener('click', (e) => {
@@ -173,47 +168,24 @@ document.addEventListener('click', (e) => {
   }
 })
 
-// function approveTrip(e) {
-//   let id = e.target.parentNode.parentNode.id
-//   currentUser.changeStatus(id, 'approved')
-//     // .then(updateAfterPost())
-//   alert('Successfully Approved!')
-// }
-
-// function denyTrip(e) {
-//   let id = Number(e.target.parentNode.parentNode.id)
-//   currentUser.cancelTrip(id)
-//     .then(updateAfterPost())
-//   alert('Successfully Cancelled!')
-// }
-
-//500 status code
 function approveTrip(e) {
   let id = e.target.parentNode.parentNode.id
-  let postObj = {
-    id: +id,
-    status: 'approved'
-  }
-  fetchCalls.modifyTripStatus(postObj)
-    .then(() => fetchCalls.getTrips())
-    .then(response => {
-      createTrips(response.trips)
-      updateAfterPost()
-    })
-    .then(alert('Successfully Approved!'))
-    .catch(err => console.error(err.message))
+  currentUser.changeStatus(id, 'approved')
+  .then(tripsData => createTrips(tripsData.trips))  
+  .then(updateAfterPost)
+  // .then(() => domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date))
+  alert('Successfully Approved!')
 }
 
 function denyTrip(e) {
   let id = Number(e.target.parentNode.parentNode.id)
-  fetchCalls.deleteTrip(id)
-    .then(() => fetchCalls.getTrips())
-    .then(response => {
-      createTrips(response.trips)
-      updateAfterPost()
-    })
-    .then(alert('Successfully Cancelled!'))
-    .catch(err => console.error(err))
+  currentUser.cancelTrip(id)
+    .then(tripsData => createTrips(tripsData.trips))
+    .then(updateAfterPost)
+    .then(e.target.parentNode.parentNode.classList.add('hide'))
+  alert('Successfully Cancelled!')
+}
 
-  e.target.parentNode.parentNode.classList.add('hide')
+function refreshTravelerDetails() {
+
 }

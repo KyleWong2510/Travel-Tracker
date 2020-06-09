@@ -4,14 +4,14 @@ import moment from 'moment'
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
-  loadAgentDash(agent, travelersData, tripsRepo) {
+  loadAgentDash(agent, travelersData, tripsRepo, date, destinationsRepo) {
     console.log('inside')
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg-text').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerHTML = `<p>Annual Revenue:</p><p>$${agent.calculateAnnualRevenue(travelersData)}</p>`
     document.getElementById('aside-title-text').innerHTML = '<p>Search Travelers</p>'
     document.getElementById('traveler-search-input').placeholder = 'Enter name...'
-    this.displayAgentTrips(agent.getPendingTrips(tripsRepo))
+    this.displayAgentTrips(agent.getPendingTrips(tripsRepo), date, destinationsRepo, travelersData)
     this.displayTravelersNames(travelersData)
     document.getElementById('main-title').innerText = 'Pending Trips'
     document.querySelector('.traveler-search-bar').classList.add('hide')
@@ -32,15 +32,16 @@ const domUpdates = {
     document.getElementById('login').classList.add('hide')
   },
 
-  displayAgentTrips(trips, date) {
+  displayAgentTrips(trips, date, destinationsRepo, travelers) {
     document.getElementById('main-content-results').innerHTML = ''
     trips.forEach(trip => {
+      let name = travelers.find(traveler => traveler.id === trip.userID).name
       document.getElementById('main-content-results').insertAdjacentHTML('afterbegin', `
         <div id='${trip.id}' class='agent-trip-card'>
           <div id='trip-card-ids'>
             <p>TripID: ${trip.id}</p>
-            <p>TravelerID: ${trip.userID}</p>
-            <p>DestinationID: ${trip.destinationID}</p>
+            <p>${name}</p>
+            <p>${trip.getDestination(destinationsRepo).destination}</p>
           </div>
           <div id='trip-card-info'>
             <p>Date: ${trip.date}</p>
@@ -89,17 +90,17 @@ const domUpdates = {
     })
   },
 
-  filterAgentTrips(e, agent, tripsRepo, date) {
+  filterAgentTrips(e, agent, tripsRepo, date, destinationsRepo, travelersRepo) {
     if (e.target.id === 'agent-pending') {
-      this.displayAgentTrips(agent.getPendingTrips(tripsRepo, date))
+      this.displayAgentTrips(agent.getPendingTrips(tripsRepo, date, destinationsRepo, travelersRepo))
       document.getElementById('main-title').innerText = 'Pending Trips'
     }
     if (e.target.id === 'agent-current') {
-      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo), date)
+      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo), date,destinationsRepo, travelersRepo)
       document.getElementById('main-title').innerText = 'Current Trips'
     }
     if (e.target.id === 'agent-all') {
-      this.displayAgentTrips(tripsRepo, date)
+      this.displayAgentTrips(tripsRepo, date, destinationsRepo, travelersRepo)
       document.getElementById('main-title').innerText = 'All Trips'
     }
   },
