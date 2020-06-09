@@ -1,0 +1,21 @@
+header {
+  @include flex-rules(row, center);
+  background: linear-gradient(
+    to right, 
+    $dark-color, 
+    $dark-color-transparent, 
+    $dark-color-transparent-light, 
+    $dark-color-transparent, 
+    $dark-color
+  );  
+  font-family: $title-font;
+  height: 15vh;
+  width: 100vw;
+  h1 {
+    color: $light-color;
+    font-size: 5em
+  }
+}
+ h2 {
+   font-family: $title-font;
+ }

@@ -1,0 +1,68 @@
+main {
+  display: flex;
+}
+
+#main-content {
+  height: 85vh;
+  width: 60vw;
+}
+
+#trips {
+  @include flex-rules(column, space-between);
+  height: 20%;
+  padding: 1%;
+  width: 100%;
+}
+
+#main-title {
+  color: $dark-color;
+  font-size: 2em;
+  height: 70%;
+  padding: 2%;
+  text-align: center;
+  width: 100%;
+}
+
+.traveler-search-bar {
+  @include flex-rules(row, space-between);
+  height: 30%;
+  width: 50%;
+
+  input {
+    border-radius: 10px 0px 0px 10px;
+    border: 0;
+    height: 100%;
+    padding: 3%;
+    width: 77%;
+  }
+
+  button {
+    @include button-rules();
+    border-radius: 0px 10px 10px 0px;
+    height: 100%;
+    width: 23%;
+  }
+}
+
+#agent-trip-btn-container {
+  align-self: flex-start;
+  height: 25%;
+  width: 50%;
+
+  button {
+    @include button-rules();
+  }
+}
+
+.trip-filter-btn {
+  height: 100%;
+  width: 24%;
+}
+
+#main-content-results {
+  @include flex-rules(column, none);
+  height: 80%;
+  overflow: scroll;
+  padding: 4%;
+  width: 100%;
+}

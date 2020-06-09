@@ -1,0 +1,35 @@
+.destination-card {
+  @include flex-rules(column, space-evenly);
+  height: 75%;
+  margin-bottom: 5%;
+  text-align: center;
+  img {
+    border-radius: 10px;
+    width: 60%
+  };
+};
+
+.destination-info {
+  @include flex-rules(row, space-between);
+  background-color: $dark-color;
+  border: $light-border;
+  border-radius: 15px;
+  padding: 3%;
+  h3 {
+    color: $light-color
+  }
+  p {
+    color: $light-color
+  }
+  .destination-costs {
+    @include flex-rules(column, space-evenly);
+    height:100%;
+    padding: 3%;
+    width: 100%
+  };
+  button {
+    @include button-rules();
+    height: 15%;
+    width: 40%
+  }
+}
