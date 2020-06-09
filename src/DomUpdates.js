@@ -149,7 +149,6 @@ const domUpdates = {
       `)
       this.displayStatusBtnsPopOut(trip, date)
     })
-    
     document.getElementById('searched-traveler-details').classList.remove('hide')
   },
 
