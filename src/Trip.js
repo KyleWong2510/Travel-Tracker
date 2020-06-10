@@ -11,7 +11,7 @@ class Trip {
   }
 
   getDestination(destinationsData) {
-    if(!Array.isArray(destinationsData) || destinationsData.length === 0) {
+    if (!Array.isArray(destinationsData) || destinationsData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }
@@ -20,7 +20,7 @@ class Trip {
   }
 
   calculateTripCost(destinationsData) {
-    if(!Array.isArray(destinationsData) || destinationsData.length === 0) {
+    if (!Array.isArray(destinationsData) || destinationsData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }

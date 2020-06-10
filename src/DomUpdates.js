@@ -57,10 +57,10 @@ const domUpdates = {
   },
 
   displayStatusBtns(trip, date) {
-    if(trip.date > date) {
+    if (trip.date > date) {
       document.getElementById('deny-btn').style.visibility = 'visible'
     }
-    if(trip.status === 'pending') {
+    if (trip.status === 'pending') {
       document.getElementById('deny-btn').style.visibility = 'visible'
       document.getElementById('approve-btn').style.visibility = 'visible'
     }
@@ -150,10 +150,10 @@ const domUpdates = {
   },
 
   displayStatusBtnsPopOut(trip, date) {
-    if(trip.date > date) {
+    if (trip.date > date) {
       document.getElementById('deny-btn-po').classList.remove('hide')
     }
-    if(trip.status === 'pending') {
+    if (trip.status === 'pending') {
       document.getElementById('deny-btn-po').classList.remove('hide')
       document.getElementById('approve-btn-po').classList.remove('hide')
     }
