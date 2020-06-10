@@ -45,28 +45,29 @@ function searchTravelers(e) {
 }
 
 function displayPostFormHandler(e) {
-  if(e.target.classList.contains('plan-trip-btn')) {
+  if (e.target.classList.contains('plan-trip-btn')) {
     domUpdates.displayPostForm(e)
   }
 }
 
 function closeBtnHandler(e) {
-  if(e.target.id === 'close-btn') {
+  if (e.target.id === 'close-btn') {
     e.preventDefault()
     e.target.parentNode.classList.add('hide')
   }
 }
 
 function getEstimateBtnHandler(e) {
-  if(e.target.id === 'get-estimate-btn') {
+  const depart = document.getElementById('departure-date').value
+  console.log(document.getElementById('departure-date').value)
+  if (e.target.id === 'get-estimate-btn') {
     e.preventDefault()
-    if(document.getElementById('return-date').value < document.getElementById('departure-date').value) {
+    if (document.getElementById('return-date').value < depart) {
       alert('Return date must be after departure date!')
     } 
-    if(document.getElementById('departure-date').value < date) {
+    if (moment(depart).format('YYYY/MM/DD') < date) {
       alert('You cannot depart for your trip in the past!')
-    }
-    else {
+    } else {
       let trip = createTrip()
       domUpdates.displayConfirmation(trip, destinationsRepo)
     }
@@ -74,26 +75,26 @@ function getEstimateBtnHandler(e) {
 }
 
 function bookBtnHandler(e) {
-  if(e.target.id === 'book-btn') {
+  if (e.target.id === 'book-btn') {
     postNewTrip()
     document.getElementById('plan-trip-confirmation').classList.add('hide')
   }
 }
 
 function displaySearchedTravelerHandler(e) {
-  if(e.target.classList.contains('searched-traveler')) {
+  if (e.target.classList.contains('searched-traveler')) {
     domUpdates.displaySearchedTraveler(e, currentUser, travelersRepo, destinationsRepo, date)
   }
 }
 
 function approveBtnHandler(e) {
-  if(e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
+  if (e.target.id === 'approve-btn' || e.target.id === 'approve-btn-po') {
     approveTrip(e)
   }
 }
 
 function denyBtnHandler(e) {
-  if(e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
+  if (e.target.id === 'deny-btn' || e.target.id === 'deny-btn-po') {
     denyTrip(e)
   }
 }
@@ -133,18 +134,18 @@ function login(e) {
   if (passwordInput.value.length > 0 && passwordInput.value !== 'travel2020') {
     alert('Sorry, incorrect password')
   }
-  if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
+  if (usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     currentUser = new Agent;
     domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date, destinationsRepo)
     
   }
   for (let i = 1; i < 51; i++) {
-    if(usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
+    if (usernameInput.value === `traveler${i}` && passwordInput.value === 'travel2020') {
       currentUser = travelersRepo[i - 1]
       domUpdates.loadTravelerDash(currentUser, destinationsRepo)
     } 
   }
-  if(!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
+  if (!document.getElementById('login').classList.contains('hide') && usernameInput.value !== 'agency') {
     alert('Sorry, unknown username')
   }
 }
@@ -185,7 +186,7 @@ function postNewTrip() {
 }
 
 function updateAfterPost() {
-  if(currentUser instanceof Agent) {
+  if (currentUser instanceof Agent) {
     console.log(currentUser)
     domUpdates.loadAgentDash(currentUser, travelersRepo, tripsRepo, date, destinationsRepo)
   } else {
@@ -198,8 +199,8 @@ function updateAfterPost() {
 function approveTrip(e) {
   let id = e.target.parentNode.parentNode.id
   currentUser.changeStatus(id, 'approved')
-  .then(tripsData => createTrips(tripsData.trips))  
-  .then(updateAfterPost)
+    .then(tripsData => createTrips(tripsData.trips))  
+    .then(updateAfterPost)
   alert('Successfully Approved!')
 }
 

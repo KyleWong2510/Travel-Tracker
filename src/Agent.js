@@ -3,7 +3,7 @@ import moment from 'moment'
 class Agent {
 
   searchTravelersByName(name, travelersData) {
-    if(!Array.isArray(travelersData) || travelersData.length === 0) {
+    if (!Array.isArray(travelersData) || travelersData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }
@@ -13,7 +13,7 @@ class Agent {
   }
 
   calculateAnnualRevenue(travelersData) {
-    if(!Array.isArray(travelersData) || travelersData.length === 0) {
+    if (!Array.isArray(travelersData) || travelersData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }
@@ -26,7 +26,7 @@ class Agent {
   }
 
   getPendingTrips(tripsData) {
-    if(!Array.isArray(tripsData) || tripsData.length === 0) {
+    if (!Array.isArray(tripsData) || tripsData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }
@@ -35,30 +35,27 @@ class Agent {
   }
 
   getCurrentTrips(date, tripsData) {
-    if(!Array.isArray(tripsData) || tripsData.length === 0) {
+    if (!Array.isArray(tripsData) || tripsData.length === 0) {
       console.log('The array is not valid')
       return 'The array is not valid'
     }
 
     let formattedDate = moment(date).format('YYYY/MM/DD')
-    if(formattedDate === 'Invalid date') {
+    if (formattedDate === 'Invalid date') {
       console.log('You must enter a date as a string');
-      return'You must enter a date as a string'
+      return 'You must enter a date as a string'
     }
     return tripsData.filter(trip => {
       let start = moment(trip.date).format('YYYY/MM/DD');
       let end = moment(trip.date).add(trip.duration, 'day').format('YYYY/MM/DD')
-      if(start <= formattedDate && formattedDate <= end) {
+      if (start <= formattedDate && formattedDate <= end) {
         return trip
       }
     })
   }
 
   changeStatus(id, status) {
-    let postObj = {
-      id: +id,
-      status: status
-    }
+    let postObj = {id: +id, status: status}
     return fetchCalls.modifyTripStatus(postObj)
       .then(() => fetchCalls.getTrips())
       .catch(err => console.error(err.message))

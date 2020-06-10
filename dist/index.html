@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Travel Tracker</title>
+  </head>
+  <body>
+    <header>
+      <h1>Travel Tracker</h1>
+    </header>
+    <main id="main" class="hide">
+      <aside id="aside-left">
+        <section id="welcome-msg">
+          <p id="welcome-msg-text"></p>
+        </section>
+        <section id="total-dollar-amt">
+          <div id="dollar-amt">
+          </div>
+        </section>
+      </aside>
+      <section id="main-content">
+        <section id="trips">
+          <h2 id="main-title">Search Destinations</h2>
+          <form class="traveler-search-bar">
+            <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
+            <input id="destination-search-input" placeholder="Enter a destination...">
+            <button id="destination-search-btn">Search</button>
+          </form>
+          <section id="agent-trip-btn-container" class="hide">
+            <button id="agent-pending" class="trip-filter-btn">Pending</button>
+            <button id="agent-current" class="trip-filter-btn">Current</button>
+            <button id="agent-all" class="trip-filter-btn">All</button>
+          </section>
+        </section>
+        <section id="main-content-results">
+          
+        </section>
+      </section>
+      <aside id="search-data">
+        <section id="aside-title">
+          <section id="aside-title-text"></section>
+          <form class="agent-search-bar">
+            <label id="search-input-title" for="search-input" class="hide">Search Destinations</label>
+            <input id="traveler-search-input" placeholder="Enter a destination...">
+            <button id="traveler-search-btn">Search</button>
+          </form>
+          <section id="traveler-trip-btn-container" class="hide">
+            <button id="traveler-pending" class="trip-filter-btn">Pending</button>
+            <button id="traveler-past" class="trip-filter-btn">Past</button>
+            <button id="traveler-current" class="trip-filter-btn">Current</button>
+            <button id="traveler-upcoming" class="trip-filter-btn">Upcoming</button>
+          </section>
+        </section>
+        <section id="aside-results">
+        </section>
+      </aside>
+    </main>
+        <form id="plan-trip" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <h2 id="plan-trip-title">Plan A Trip</h2>
+          <label class="plan-trip-inputs" for="departure-date">Departure Date: <input type="date" id="departure-date"></label>
+          <label class="plan-trip-inputs" for="return-date">Return Date: <input type="date" id="return-date"></label>
+          <label class="plan-trip-inputs" for="num-people-input"># of travelers: <input id="num-people-input" type="number" placeholder="1" min="1"></label>
+          <button id="get-estimate-btn">Get Estimate</button>
+        </form>
+        <section id="plan-trip-confirmation" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <h2 id="plan-trip-confirmation-title"></h2>
+          <img id="image-confirmation">
+          <p id="departure-date-confirmation"></p>
+          <p id="return-date-confirmation"></p>
+          <p id="num-people-confirmation"></p>
+          <p id="estimated-cost"></p>
+          <button id="book-btn">Confirm & Book</button>
+        </section>
+        <section id="searched-traveler-details" class="pop-up-box hide">
+          <button id="close-btn">X</button> 
+          <section id="searched-traveler-top">
+            <h2 id="searched-traveler-name"></h2>
+            <p id="searched-traveler-amount-spent"></p>
+          </section>
+          <section id="searched-traveler-trips"></section>
+        </section>
+        <form id="login" class="pop-up-box">
+          <h2>Login</h2>
+            <label class="login-inputs" for="username-input">Username: <input required type="text" id="username-input" placeholder="Enter Username" value="traveler50"></label>
+            <label class="login-inputs" for="password-input">Password: <input required type="password" id="password-input" placeholder="Enter Password" value="travel2020"></label>
+          <button id="login-btn">Login</button>
+        </form>
+  <script type="text/javascript" src="main.bundle.js"></script></body>
+</html>
