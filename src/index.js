@@ -58,12 +58,14 @@ function closeBtnHandler(e) {
 }
 
 function getEstimateBtnHandler(e) {
+  const depart = document.getElementById('departure-date').value
+  console.log(document.getElementById('departure-date').value)
   if (e.target.id === 'get-estimate-btn') {
     e.preventDefault()
-    if (document.getElementById('return-date').value < document.getElementById('departure-date').value) {
+    if (document.getElementById('return-date').value < depart) {
       alert('Return date must be after departure date!')
     } 
-    if (document.getElementById('departure-date').value < date) {
+    if (moment(depart).format('YYYY/MM/DD') < date) {
       alert('You cannot depart for your trip in the past!')
     } else {
       let trip = createTrip()
