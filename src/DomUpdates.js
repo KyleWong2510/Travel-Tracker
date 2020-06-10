@@ -1,11 +1,9 @@
-import Agent from "./Agent"
 import moment from 'moment'
 
 const domUpdates = {
   date: moment().format('YYYY/MM/DD'),
 
   loadAgentDash(agent, travelersData, tripsRepo, date, destinationsRepo) {
-    console.log('inside')
     document.getElementById('agent-trip-btn-container').classList.remove('hide')
     document.getElementById('welcome-msg-text').innerText = 'Welcome, Agent'
     document.getElementById('dollar-amt').innerHTML = `<p>Annual Revenue:</p><p>$${agent.calculateAnnualRevenue(travelersData)}</p>`
@@ -60,7 +58,6 @@ const domUpdates = {
 
   displayStatusBtns(trip, date) {
     if(trip.date > date) {
-      console.log('in date')
       document.getElementById('deny-btn').style.visibility = 'visible'
     }
     if(trip.status === 'pending') {
@@ -92,11 +89,11 @@ const domUpdates = {
 
   filterAgentTrips(e, agent, tripsRepo, date, destinationsRepo, travelersRepo) {
     if (e.target.id === 'agent-pending') {
-      this.displayAgentTrips(agent.getPendingTrips(tripsRepo, date, destinationsRepo, travelersRepo))
+      this.displayAgentTrips(agent.getPendingTrips(tripsRepo), date, destinationsRepo, travelersRepo)
       document.getElementById('main-title').innerText = 'Pending Trips'
     }
     if (e.target.id === 'agent-current') {
-      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo), date,destinationsRepo, travelersRepo)
+      this.displayAgentTrips(agent.getCurrentTrips(this.date, tripsRepo), date, destinationsRepo, travelersRepo)
       document.getElementById('main-title').innerText = 'Current Trips'
     }
     if (e.target.id === 'agent-all') {
@@ -179,7 +176,6 @@ const domUpdates = {
       document.getElementById('aside-results').innerHTML = '<p>No past trips</p>'
     } else {
       this.displayTravelerTrips(past, destinationsData)
-      console.log(document.getElementById('aside-title-text'))
     }
   },
 

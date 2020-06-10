@@ -60,8 +60,16 @@ function closeBtnHandler(e) {
 function getEstimateBtnHandler(e) {
   if(e.target.id === 'get-estimate-btn') {
     e.preventDefault()
-    let trip = createTrip()
-    domUpdates.displayConfirmation(trip, destinationsRepo)
+    if(document.getElementById('return-date').value < document.getElementById('departure-date').value) {
+      alert('Return date must be after departure date!')
+    } 
+    if(document.getElementById('departure-date').value < date) {
+      alert('You cannot depart for your trip in the past!')
+    }
+    else {
+      let trip = createTrip()
+      domUpdates.displayConfirmation(trip, destinationsRepo)
+    }
   }
 }
 
