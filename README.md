@@ -7,4 +7,29 @@ Travel-Tracker is an application that manages and tracks trips for individual us
  - Solidify the code review process
  - Create a robust test suite that thoroughly tests all functionality of a client-side application
 
+### Set Up
+Open your terminal and run the following command: git clone git@github.com:KyleWong2510/Travel-Tracker.git
+Once the repository is cloned down, run: npm install
+After install, run: npm start
+In your browser, go to: http://localhost:8080/
+
+OR
+
+See it in action [here](https://kylewong2510.github.io/Travel-Tracker/)
+
 ### Demo 
+
+#### Logging In
+![login](src/images/login.gif)
+
+#### Traveler View: Searching a destination
+![search-destination](src/images/search-destinations.gif)
+
+#### Traveler View: Filtering trips
+![filter-trips](src/images/traveler-filter.gif)
+
+#### Agent View: Searching a traveler
+![search-traveler](src/images/search-travelers.gif)
+
+#### Agent View: Approving a trip request
+![approve-trip](src/images/approve-deny.gif)
