@@ -33,3 +33,15 @@ See it in action [here](https://kylewong2510.github.io/Travel-Tracker/)
 
 #### Agent View: Approving a trip request
 ![approve-trip](src/images/approve-deny.gif)
+
+### Technologies Used
+- fetch API
+- Javascript
+- SCSS
+- Mocha and Chai
+
+### Future Iterations
+- Stronger accessibility
+- Implementation of Spies testing
+- Responsive for mobile layouts
+- Fix minor display bugs on POST
